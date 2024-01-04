@@ -9,6 +9,8 @@ body {
 
 
 header {
+    position: sticky;
+    top: 0;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -29,6 +31,13 @@ header {
 }
 .logo {
     cursor: pointer;
+    height: 50px;
+    width: auto;
+}
+.word-logo {
+    padding-left: 0px;
+    font-size: 30px;
+    font-weight: bold;
 }
 .nav-links {
     list-style: none;
@@ -57,6 +66,64 @@ button:hover {
 
 
 
+.menu-button {
+    display: none;
+    padding: 9px 2px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35px;
+    height: 25px;
+}
+.menu-button .bar {
+    height: 4px;
+    width: 100%;
+    border-radius: 3px;
+    background-color: aliceblue;
+}
+@media (max-width: 850px) {
+    .menu-button {
+        display: flex;
+        transition-duration: 0.4s;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;  
+        position:absolute;
+        padding-top: 15px;
+    }
+    .cta {
+        position: relative;
+    }
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .nav-links li {
+        text-align: left;
+        padding: 5px 0px;
+    }
+    .nav-links.active {
+        display: flex;
+        margin-top: 40px;
+        padding-bottom: 20px;
+        left: 0px;
+        width: 100%;
+        background-color: #24252aec;
+    } 
+    .menu-button.close {
+        transform: rotate(180deg);
+        transition-duration: 0.4s;
+    }   
+    .menu-button.close .bar:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 7px);
+    }
+    .menu-button.close .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-button.close .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -7px);
+    }
+}
 
 
 
