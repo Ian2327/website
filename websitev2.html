@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *
+        {
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background: #171717;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        main {
+            
+        }
+        nav {
+            position: relative;
+            width: 510px;
+            height: 50px;
+            background: #333;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav a {
+            position: relative; 
+            display: inline-block;
+            font-size: 1em;
+            font-weight: 700;
+            color: aliceblue;
+            background: none;
+            text-decoration: none;
+            padding: 0 23px;
+            z-index: 1;
+        }
+        nav span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 90px;
+            height: 100%;
+            background: linear-gradient(45deg, #680000, #ff0000);
+            border-radius: 8px;
+            transition: 0.5s;
+        }
+        nav a:nth-child(1):hover~span {
+            left: 0;
+        }
+        nav a:nth-child(2):hover~span {
+            left: 92px;
+            width: 92px;
+        }
+        nav a:nth-child(3):hover~span {
+            left: 183px;
+            width: 109px;
+        }
+        nav a:nth-child(4):hover~span {
+            left: 293px;
+            width: 108px;
+        }
+        nav a:nth-child(5):hover~span {
+            left: 403px;
+            width: 107px;
+        }
+        .heading {
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+        }
+        a.logo {
+            text-decoration: none;
+            color: aliceblue;
+            font-size: 50px;
+            margin: 20px;
+            font-variant: small-caps;
+        }
+        .phone-number {
+            color: aliceblue;
+            font-size: 20px;
+            margin-right: 20px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">
+        <a class="logo" href="#">Ian Setia</a>
+        <p class="phone-number" href="">+1 (984) 242-7481</p>
+    </div>
+    <header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="about2.html">About</a>
+            <a href="#">Projects</a>
+            <a href="resume2.html">Resume</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" target="_blank">Contact</a>
+            <span></span>
+        </nav>
+    </header>
+</body>
+</html>
