@@ -1,0 +1,640 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the modal
+            var popup = document.getElementById("popup");
+            // Get the link that opens the modal
+            var openPopup = document.getElementById("menubar");
+            // Get the <span> element that closes the modal
+            var closePopup = document.getElementById("closePopup");
+
+            var popupItems = document.getElementsByClassName("popup-item");
+
+            Array.from(popupItems).forEach(function (item) {
+                item.onclick = function () {
+                    popup.style.display = "none"; // Hide the popup when an item is clicked
+                }
+            });
+
+            // When the user clicks on the link, open the modal
+            openPopup.onclick = function (event) {
+                event.preventDefault(); // Prevent the default anchor behavior
+                popup.style.display = "block"; // Show the popup
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            closePopup.onclick = function () {
+                popup.style.display = "none"; // Hide the popup
+            }
+
+            // When the user clicks anywhere outside of the popup, close it
+            window.onclick = function (event) {
+                if (event.target == popup) {
+                    popup.style.display = "none"; // Hide the popup
+                }
+            }
+
+            document.getElementById('repoForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const repoSelect = document.getElementById('repoSelect');
+                const repoUrl = repoSelect.value;
+                const repoData = document.getElementById('repoData');
+                const fileList = document.getElementById('fileList');
+                const codeBox = document.getElementById('codeBox');
+                const fileContent = document.getElementById('fileContent');
+
+                if (repoUrl === "none") {
+                    alert("Please select a valid repository.");
+                    return;
+                }
+
+                // Parse the repo URL to get the owner and repo name
+                const urlParts = repoUrl.replace('https://github.com/', '').split('/');
+                const owner = urlParts[0];
+                const repo = urlParts[1];
+
+                // Use GitHub API to fetch repository contents
+                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents`;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        fileList.innerHTML = ''; // Clear the list first
+                        codeBox.style.display = 'none'; // Hide code box initially
+
+                        data.forEach(file => {
+                            const li = document.createElement('li');
+                            li.textContent = file.name;
+
+                            // Add click event to fetch file content when clicked
+                            li.addEventListener('click', function () {
+                                fetchFileContent(file.download_url);
+                            });
+
+                            fileList.appendChild(li);
+                        });
+                    })
+                    .catch(error => {
+                        fileList.innerHTML = 'Error fetching repository data!';
+                        console.error('Error:', error);
+                    });
+
+                // Function to fetch and display the file content
+                function fetchFileContent(fileUrl) {
+                    fetch(fileUrl)
+                        .then(response => response.text())
+                        .then(data => {
+                            fileContent.textContent = data;
+                            codeBox.style.display = 'block'; // Show the code box when file is clicked
+                        })
+                        .catch(error => {
+                            fileContent.textContent = 'Error loading file content!';
+                            console.error('Error:', error);
+                        });
+                }
+            });
+        });
+
+    </script>
+
+    <style>
+        * {
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background: #171717;
+            color: aliceblue;
+            text-decoration: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        a {
+            background: local;
+        }
+
+        p,
+        li {
+            margin-top: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+        }
+
+        h1,
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        main {
+            margin-top: 40px;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        nav {
+            position: relative;
+            width: 510px;
+            height: 50px;
+            background: #333;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        nav a {
+            position: relative;
+            display: inline-block;
+            font-size: 1em;
+            font-weight: 700;
+            color: aliceblue;
+            background: none;
+            text-decoration: none;
+            padding: 0 23px;
+            z-index: 1;
+        }
+
+        nav span {
+            position: absolute;
+            top: 0;
+            left: 183;
+            width: 109px;
+            height: 100%;
+            background: linear-gradient(45deg, #680000, #ff0000);
+            border-radius: 8px;
+            transition: 0.5s;
+        }
+
+        nav a:nth-child(1):hover~span {
+            left: 0;
+        }
+
+        nav a:nth-child(2):hover~span {
+            left: 92px;
+            width: 92px;
+        }
+
+        nav a:nth-child(3):hover~span {
+            left: 183px;
+            width: 109px;
+        }
+
+        nav a:nth-child(4):hover~span {
+            left: 293px;
+            width: 108px;
+        }
+
+        nav a:nth-child(5):hover~span {
+            left: 403px;
+            width: 107px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-right: 5%;
+            margin-top: 20px;
+        }
+
+        a.logo {
+            font-size: 275%;
+            margin: 20px;
+            margin-left: 50px;
+            /*font-family:'Poppins', sans-serif;*/
+            font-variant: small-caps;
+        }
+
+        .phone-number {
+            font-size: 20px;
+            margin-right: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            /*font-family: sans-serif;*/
+        }
+
+        .profile-pic {
+            display: block;
+            width: 15vw;
+            padding-top: 15vw;
+            /* This creates the square effect */
+            position: relative;
+            border-radius: 50%;
+            float: left;
+            margin: 10px 20px;
+        }
+
+        .menu-bar {
+            display: none;
+            padding: 9px 5px;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 55px;
+            height: 50px;
+            transition-duration: 0.5s;
+        }
+
+        .bar {
+            background-color: aliceblue;
+            height: 4px;
+            width: 100%;
+            border-radius: 3px;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .resume-box {
+            background-color: #333;
+            width: 100%;
+            padding: 20px;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .col {
+            background-color: inherit;
+            flex: 50%;
+            margin-left: 5%;
+            margin-bottom: 20px;
+        }
+
+        .col-title {
+            margin-bottom: 10px;
+        }
+
+        .skills {
+            background-color: inherit;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 35px;
+            margin-right: 20px;
+        }
+
+        .tag {
+            background: #a40000;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-align: center;
+            white-space: nowrap;
+            /* Prevents text from wrapping */
+        }
+
+        .education,
+        .experience,
+        .certifications {
+            background-color: inherit;
+            margin-bottom: 20px;
+        }
+
+        .education-cards,
+        .experience-cards,
+        .certification-cards {
+            background: inherit;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 0% 5% 0% 2%;
+        }
+
+        .card {
+            background-color: #5f5f5f;
+            /*border: 1px solid #ccc;*/
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            flex: 1;
+            min-width: 225px;
+        }
+
+        .card h3 {
+            /*card title*/
+            margin: 0 0 10px 0;
+            font-size: 1.15em;
+        }
+
+        .card h2 {
+            margin: 0 0 10px 0;
+            font-size: 0.9em;
+        }
+
+        .card p {
+            /*card info*/
+            margin: 5px 0;
+            font-size: 0.85em;
+        }
+
+        i,
+        b {
+            background-color: inherit;
+        }
+
+        ul,
+        li {
+            background-color: inherit;
+            margin-right: 10px;
+            font-size: 0.90em;
+            margin-left: 15px;
+        }
+
+        .active {
+            display: flex;
+        }
+
+        .popup {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .popup-content {
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            margin: 15% auto;
+            /* 15% from the top and centered */
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        .close {
+            color: inherit;
+            background-color: inherit;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #a40000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .popup-item {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .popup-item:hover {
+            color: #a40000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .certifications h3 {
+            color: aliceblue;
+            text-align: center;
+            font-size: 1.15em;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .certifications h2 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+
+        body {
+            background-color: inherit;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container,
+        .container select,
+        .container label,
+        .container button,
+        .container h1,
+        .container h2,
+        .container ul,
+        .container li,
+        select {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid aliceblue;
+        }
+
+        /* Change the background color of selected option */
+        select option:checked {
+            background-color: #28a745;
+            /* Change to desired highlight color */
+            color: aliceblue;
+            /* Text color for selected option */
+        }
+
+        /* Change the background color on hover */
+        select option:hover {
+            background-color: purple;
+            /* Change to a different color on hover */
+        }
+
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: aliceblue;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .repo-data {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            background-color: #5f5f5f;
+            margin: 5px 0;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        pre {
+            background-color: #5f5f5f;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            white-space: pre;
+            word-wrap: normal;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+
+        .code-box {
+            display: none;
+            background-color: inherit;
+        }
+
+        .form,
+        option,
+        .repo-data,
+        h3 {
+            background-color: inherit;
+            color: aliceblue;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+
+
+
+
+        @media (max-width: 700px) {
+            nav {
+                display: none;
+            }
+
+            .menu-bar {
+                display: flex;
+            }
+
+            .resume-box {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 475px) {
+            .phone-number {
+                font-size: 15px;
+                margin-right: 0px;
+            }
+
+            a.logo {
+                font-size: 220%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heading">
+        <a class="logo" href="websitev2.html">Ian Setia</a>
+        <p class="phone-number" href="">+1 (984) 242-7481</p>
+
+    </div>
+    <header>
+        <nav class="nav-menu">
+            <a class="nav-item" href="websitev2.html">Home</a>
+            <a class="nav-item" href="about2.html">About</a>
+            <a class="nav-item" href="project2.html">Projects</a>
+            <a class="nav-item" href="resume2.html">Resume</a>
+            <a class="nav-item" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu"
+                target="_blank">Contact</a>
+            <span></span>
+        </nav>
+        <a id="menubar" href="#" class="menu-bar">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </a>
+    </header>
+
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <a class="popup-item" href="websitev2.html">Home</a>
+            <a class="popup-item" href="about2.html">About</a>
+            <a class="popup-item" href="project2.html">Projects</a>
+            <a class="popup-item" href="resume2.html">Resume</a>
+            <a class="popup-item" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu"
+                target="_blank">Contact</a>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <h1>GitHub Repository Files Viewer</h1>
+
+            <form class="form" id="repoForm">
+                <label class="form" for="repoSelect">Select GitHub Repository:</label>
+                <select id="repoSelect" required>
+                    <option value="none" selected disabled>Select a repository</option>
+                    <option value="https://github.com/Ian2327/projects">Website Source Code</option>
+                    <option value="https://github.com/Ian2327/Machine-Learning-Projects">Machine Learning Projects
+                    </option>
+                </select>
+                <button type="submit">Fetch Files</button>
+            </form>
+
+            <div id="repoData" class="repo-data">
+                <h2>Repository Files:</h2>
+                <ul id="fileList"></ul>
+                <div class="code-box" id="codeBox">
+                    <h3>File Content:</h3>
+                    <pre id="fileContent"></pre>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
