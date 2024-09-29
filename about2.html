@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,35 +18,34 @@
 
             var popupItems = document.getElementsByClassName("popup-item");
 
-            Array.from(popupItems).forEach(function(item) {
-                item.onclick = function() {
+            Array.from(popupItems).forEach(function (item) {
+                item.onclick = function () {
                     popup.style.display = "none"; // Hide the popup when an item is clicked
                 }
             });
 
             // When the user clicks on the link, open the modal
-            openPopup.onclick = function(event) {
+            openPopup.onclick = function (event) {
                 event.preventDefault(); // Prevent the default anchor behavior
                 popup.style.display = "block"; // Show the popup
             }
 
             // When the user clicks on <span> (x), close the modal
-            closePopup.onclick = function() {
+            closePopup.onclick = function () {
                 popup.style.display = "none"; // Hide the popup
             }
 
             // When the user clicks anywhere outside of the popup, close it
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == popup) {
                     popup.style.display = "none"; // Hide the popup
                 }
             }
         });
     </script>
-    
+
     <style>
-        *
-        {
+        * {
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
@@ -53,26 +53,39 @@
             color: aliceblue;
             text-decoration: none;
         }
-        h1, h2, h3, h4, p, a{
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        a {
             background: local;
         }
-        p, li{
+
+        p,
+        li {
             margin-top: 0;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             margin-bottom: 5px;
         }
+
         header {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
+
         main {
             margin-top: 40px;
             margin-left: 10%;
             margin-right: 10%;
         }
+
         nav {
             position: relative;
             width: 510px;
@@ -86,7 +99,7 @@
 
 
         nav a {
-            position: relative; 
+            position: relative;
             display: inline-block;
             font-size: 1em;
             font-weight: 700;
@@ -96,6 +109,7 @@
             padding: 0 23px;
             z-index: 1;
         }
+
         nav span {
             position: absolute;
             top: 0;
@@ -106,32 +120,39 @@
             border-radius: 8px;
             transition: 0.5s;
         }
+
         nav a:nth-child(1):hover~span {
             left: 0;
         }
+
         nav a:nth-child(2):hover~span {
             left: 92px;
             width: 92px;
         }
+
         nav a:nth-child(3):hover~span {
             left: 183px;
             width: 109px;
         }
+
         nav a:nth-child(4):hover~span {
             left: 293px;
             width: 108px;
         }
+
         nav a:nth-child(5):hover~span {
             left: 403px;
             width: 107px;
         }
+
         .heading {
-            display: flex; 
+            display: flex;
             justify-content: space-between;
             align-items: center;
             margin-right: 5%;
             margin-top: 20px;
         }
+
         a.logo {
             font-size: 275%;
             margin: 20px;
@@ -139,10 +160,11 @@
             /*font-family:'Poppins', sans-serif;*/
             font-variant: small-caps;
         }
+
         .phone-number {
             font-size: 20px;
             margin-right: 20px;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             /*font-family: sans-serif;*/
         }
 
@@ -155,6 +177,7 @@
             height: 50px;
             transition-duration: 0.5s;
         }
+
         .bar {
             background-color: aliceblue;
             height: 4px;
@@ -162,16 +185,18 @@
             border-radius: 3px;
             -webkit-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
-        }        
+        }
+
         .resume-box {
             background-color: #333;
             width: 100%;
-            padding: 20px;    
-            border-radius: 30px;   
+            padding: 20px;
+            border-radius: 30px;
             margin-bottom: 30px;
-            display: flex;  
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);   
+            display: flex;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
         }
+
         .col {
             background-color: inherit;
             flex: 50%;
@@ -182,6 +207,7 @@
         .col-title {
             margin-bottom: 10px;
         }
+
         .skills {
             background-color: inherit;
             display: flex;
@@ -198,11 +224,12 @@
             padding: 5px 10px;
             border-radius: 5px;
             text-align: center;
-            white-space: nowrap;  /* Prevents text from wrapping */
+            white-space: nowrap;
+            /* Prevents text from wrapping */
         }
 
         .profile-pic {
-            display:block;
+            display: block;
             width: 15vw;
             /*padding-top: 15vw; /* This creates the square effect */
             position: relative;
@@ -210,36 +237,45 @@
             float: left;
             margin: 30px 20px;
         }
+
         .about-box {
             background-color: #333;
             width: 100%;
-            padding: 20px;    
-            border-radius: 30px;   
-            margin-bottom: 30px;     
+            padding: 20px;
+            border-radius: 30px;
+            margin-bottom: 30px;
         }
+
         .about-desc {
             background-color: #333;
             display: flex;
             align-items: flex-start;
             flex-wrap: wrap;
-            width:auto;
+            width: auto;
             margin-right: 30px;
             padding-left: 20px;
         }
+
         .linkedin {
             color: deepskyblue;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
+
         .linkedin:hover {
             color: rgb(54, 205, 255);
             /*color: #00b963*/
         }
 
-        .education, .experience, .certifications {
+        .education,
+        .experience,
+        .certifications {
             background-color: inherit;
             margin-bottom: 20px;
         }
 
-        .education-cards, .experience-cards, .certification-cards {
+        .education-cards,
+        .experience-cards,
+        .certification-cards {
             background: inherit;
             display: flex;
             gap: 20px;
@@ -257,7 +293,8 @@
             min-width: 225px;
         }
 
-        .card h3 { /*card title*/
+        .card h3 {
+            /*card title*/
             margin: 0 0 10px 0;
             font-size: 1.15em;
         }
@@ -267,45 +304,58 @@
             font-size: 0.9em;
         }
 
-        .card p { /*card info*/
+        .card p {
+            /*card info*/
             margin: 5px 0;
             font-size: 0.85em;
         }
 
-        i, b {
+        i,
+        b {
             background-color: inherit;
         }
 
-        ul, li {
+        ul,
+        li {
             background-color: inherit;
             margin-right: 10px;
             font-size: 0.90em;
             margin-left: 15px;
         }
+
         .active {
-            display:flex;
+            display: flex;
         }
 
         .popup {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
         }
 
         .popup-content {
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
-            margin: 15% auto; /* 15% from the top and centered */
+            margin: 15% auto;
+            /* 15% from the top and centered */
             padding: 20px;
             border-radius: 10px;
-            width: 80%; /* Could be more or less, depending on screen size */
+            width: 80%;
+            /* Could be more or less, depending on screen size */
         }
 
         .close {
@@ -322,11 +372,13 @@
             text-decoration: none;
             cursor: pointer;
         }
+
         .popup-item {
             margin-top: 10px;
             margin-bottom: 10px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
+
         .popup-item:hover {
             color: #a40000;
             text-decoration: none;
@@ -346,23 +398,50 @@
             margin-bottom: 0;
         }
 
-    
+
         @media (max-width: 700px) {
             nav {
                 display: none;
             }
+
             .menu-bar {
                 display: flex;
             }
-            .resume-box{
+
+            .resume-box {
                 flex-direction: column;
             }
+
+            .about-box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-pic {
+                width: 40vw;
+                margin: 10px auto;
+                /* Center the image and reduce margin */
+            }
+
+            .about-desc {
+                width: 100%;
+                padding-left: 0;
+                /* Adjust padding for smaller screens */
+                text-align: left;
+                /* Center the text for a cleaner look */
+            }
+
         }
-        @media (max-width: 475px) { /*phone version*/
-            .phone-number{
+
+        @media (max-width: 475px) {
+
+            /*phone version*/
+            .phone-number {
                 font-size: 15px;
                 margin-right: 0px;
             }
+
             a.logo {
                 font-size: 220%;
             }
@@ -370,6 +449,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="heading">
         <a class="logo" href="index.html">Ian Setia</a>
@@ -382,7 +462,8 @@
             <a class="nav-item" href="about2.html">About</a>
             <a class="nav-item" href="project2.html">Projects</a>
             <a class="nav-item" href="resume2.html">Resume</a>
-            <a class="nav-item" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" target="_blank">Contact</a>
+            <a class="nav-item" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu"
+                target="_blank">Contact</a>
             <span></span>
         </nav>
         <a id="menubar" href="#" class="menu-bar">
@@ -391,8 +472,8 @@
             <span class="bar"></span>
         </a>
     </header>
-   
-    
+
+
     <div id="popup" class="popup">
         <div class="popup-content">
             <span class="close" id="closePopup">&times;</span>
@@ -400,36 +481,43 @@
             <a class="popup-item" href="about2.html">About</a>
             <a class="popup-item" href="project2.html">Projects</a>
             <a class="popup-item" href="resume2.html">Resume</a>
-            <a class="popup-item" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" target="_blank">Contact</a>
+            <a class="popup-item" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu"
+                target="_blank">Contact</a>
         </div>
     </div>
-    
+
     <main>
         <div class="resume-box">
             <div class="about-box">
-                <img class="profile-pic" src="https://media.licdn.com/dms/image/v2/D5603AQGWfogxc8kRSQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1691634414626?e=1732752000&v=beta&t=7-zMuS6nxBIgJqtE7ldLqikTmLGqHwTo4-8JNCgWkb8" alt="">
+                <img class="profile-pic"
+                    src="https://media.licdn.com/dms/image/v2/D5603AQGWfogxc8kRSQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1691634414626?e=1732752000&v=beta&t=7-zMuS6nxBIgJqtE7ldLqikTmLGqHwTo4-8JNCgWkb8"
+                    alt="">
                 <div class="about-desc">
                     <h1>About Me</h1>
                     <p>
-                        Welcome to my personal website! 
-                        My name is Ian Setia, and I'm thrilled to have you here. 
+                        Welcome to my personal website!
+                        My name is Ian Setia, and I'm thrilled to have you here.
                         This page is dedicated to giving you a glimpse into who I am, what I do, and what drives me.
                     </p>
                     <h2>Who Am I?</h2>
-                    <p>I am currently a Sophomore at the University of Notre Dame pursuing 
+                    <p>I am currently a Sophomore at the University of Notre Dame pursuing
                         a degree in Computer Science with a minor in Engineering Corporate Practice.
-                        I have a deep cursiosity for data analysis and machine learning, and I'm eager to exlore and learn as much 
+                        I have a deep cursiosity for data analysis and machine learning, and I'm eager to exlore and
+                        learn as much
                         as I can during my academic journey.
                     </p>
                     <h2>Let's Connect</h2>
                     <p>
-                        I'm always open to making new connection, whether to new students, progessors, professionals, or anyone else who shares similar interest or aspirations. 
-                        If you'd like to reach out, feel free to message me at 984-242-7481 or email me at isetia@nd.edu.
-                        And if you want to connect on <a class="linkedin" href="https://www.linkedin.com/in/ian-setia/">LinkedIn</a>. I'd love to hear from you!
+                        I'm always open to making new connection, whether to new students, progessors, professionals, or
+                        anyone else who shares similar interest or aspirations.
+                        If you'd like to reach out, feel free to message me at 984-242-7481 or email me at
+                        isetia@nd.edu, and if you want to connect on <a class="linkedin"
+                            href="https://www.linkedin.com/in/ian-setia/">LinkedIn</a>. I'd love to hear from you!
                     </p>
                 </div>
-            </span>
-        </span>
+                </span>
+                </span>
     </main>
 </body>
+
 </html>
