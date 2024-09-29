@@ -1,22 +1,141 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the modal
+            var popup = document.getElementById("popup");
+            // Get the link that opens the modal
+            var openPopup = document.getElementById("menubar");
+            // Get the <span> element that closes the modal
+            var closePopup = document.getElementById("closePopup");
+
+            var popupItems = document.getElementsByClassName("popup-item");
+
+            Array.from(popupItems).forEach(function(item) {
+                item.onclick = function() {
+                    popup.style.display = "none"; // Hide the popup when an item is clicked
+                }
+            });
+
+            // When the user clicks on the link, open the modal
+            openPopup.onclick = function(event) {
+                event.preventDefault(); // Prevent the default anchor behavior
+                popup.style.display = "block"; // Show the popup
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            closePopup.onclick = function() {
+                popup.style.display = "none"; // Hide the popup
+            }
+
+            // When the user clicks anywhere outside of the popup, close it
+            window.onclick = function(event) {
+                if (event.target == popup) {
+                    popup.style.display = "none"; // Hide the popup
+                }
+            }
+        });
+    </script>
     <style>
-        *
-        {
+        * {
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            background: #171717;
+            color: aliceblue;
+            margin: 0;
+            text-decoration: none;
         }
+        
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            justify-content: center;
+        }
+
+        .hero-image {
+            background-image: url('https://media.licdn.com/dms/image/v2/D5616AQH4asYibucoXA/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1677770246625?e=1733356800&v=beta&t=ZcEYmmzKk2jAeytgsMOHLf0SU20kbEhQ9NIolmnA98o'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            animation: pan 20s linear infinite; /* Panning animation */
+        }
+
+        @keyframes pan {
+            from {
+                background-position: 0% 50%;
+            }
+            to {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Blurred edges */
+        .hero-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+            filter: blur(15px);
+            z-index: 0; /* Behind the content */
+            pointer-events: none; /* Allow clicks to pass through */
+        }
+
+        .heading {
+            position: absolute; /* Changed to absolute to position it correctly */
+            top: 0px; /* Adjust the position as needed */
+            left: 0px;
+            right: 0px;
+            margin-top: 20px;
+            margin-right: 5%;
+            z-index: 2; /* Above the hero image */
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        a.logo {
+            text-decoration: none;
+            color: aliceblue;
+            font-size: 275%;
+            margin: 20px;
+            margin-left: 50px;
+            font-variant: small-caps;
+        }
+
+        .phone-number {
+            color: aliceblue;
+            font-size: 20px;
+            margin-right: 20px; /* Removed margin to adjust positioning */
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
         header {
             display: flex;
             justify-content: center;
+            position: absolute; /* or 'relative' based on your layout */
+            top: 110px;
             margin-top: 20px;
+            left: 0; /* Align to the left */
+            right: 0; /* Align to the right */
+            z-index: 3; /* Above the hero image */
         }
-        
+
         nav {
             position: relative;
             width: 510px;
@@ -27,6 +146,7 @@
             justify-content: center;
             align-items: center;
         }
+
         nav a {
             position: relative; 
             display: inline-block;
@@ -38,6 +158,7 @@
             padding: 0 23px;
             z-index: 1;
         }
+
         nav span {
             position: absolute;
             top: 0;
@@ -48,59 +169,175 @@
             border-radius: 8px;
             transition: 0.5s;
         }
+
         nav a:nth-child(1):hover~span {
             left: 0;
         }
+
         nav a:nth-child(2):hover~span {
             left: 92px;
             width: 92px;
         }
+
         nav a:nth-child(3):hover~span {
             left: 183px;
             width: 109px;
         }
+
         nav a:nth-child(4):hover~span {
             left: 293px;
             width: 108px;
         }
+
         nav a:nth-child(5):hover~span {
             left: 403px;
             width: 107px;
         }
-        .heading {
-            display: flex; 
+
+        .menu-bar {
+            display: none;
+            padding: 9px 5px;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
+            width: 55px;
+            height: 50px;
+            transition-duration: 0.5s;
         }
-        a.logo {
+        .bar {
+            background-color: aliceblue;
+            height: 4px;
+            width: 100%;
+            border-radius: 3px;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 5; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .popup-content {
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        .close {
+            color: inherit;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #a40000;
             text-decoration: none;
-            color: aliceblue;
-            font-size: 50px;
-            margin: 20px;
-            font-variant: small-caps;
+            cursor: pointer;
         }
-        .phone-number {
+        .popup-item {
+            margin-top: 10px;
+            margin-bottom: 10px;
             color: aliceblue;
-            font-size: 20px;
-            margin-right: 20px;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .popup-item:hover {
+            color: #a40000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .quote {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            position: absolute; /* Keep this */
+            top: 300px;
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Adjust position */
+            max-width: 600px; /* Adjust as needed */
+            font-size: 24px;
+            text-align: center;
+            z-index: 1; /* Above the hero image */
+            padding: 0 20px; /* Optional padding */
+            color: aliceblue; /* Text color */
+        }
+        @media (max-width: 700px) {
+            nav {
+                display: none;
+            }
+            .menu-bar {
+                display: flex;
+            }
+            .resume-box{
+                flex-direction: column;
+            }
+            .quote {
+                font-size: 18px;
+            }
+        }
+        @media (max-width: 475px) {
+            .phone-number{
+                font-size: 15px;
+                margin-right: 0px;
+            }
+            a.logo {
+                font-size: 220%;
+            }
+
         }
     </style>
 </head>
 <body>
-    <div class="heading">
-        <a class="logo" href="#">Ian Setia</a>
-        <p class="phone-number" href="">+1 (984) 242-7481</p>
+    <div class="hero-container">
+        <div class="hero-image"></div>
+        <div class="heading">
+            <a class="logo" href="#">Ian Setia</a>
+            <p class="phone-number">+1 (984) 242-7481</p>
+        </div>
+
+        <header>
+            <nav>
+                <a href="websitev2.html">Home</a>
+                <a href="about2.html">About</a>
+                <a href="project2.html">Projects</a>
+                <a href="resume2.html">Resume</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" target="_blank">Contact</a>
+                <span></span>
+            </nav>
+            <a id="menubar" href="#" class="menu-bar">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </a>
+        </header>
+        <div class="quote">
+            “The journey of a thousand miles begins with a single step.”
+             ~ Lao Tzu
+        </div>
+       
+        
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closePopup">&times;</span>
+                <a class="popup-item" href="websitev2.html">Home</a>
+                <a class="popup-item" href="about2.html">About</a>
+                <a class="popup-item" href="project2.html">Projects</a>
+                <a class="popup-item" href="resume2.html">Resume</a>
+                <a class="popup-item" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" target="_blank">Contact</a>
+            </div>
+        </div>
+
     </div>
-    <header>
-        <nav>
-            <a href="#">Home</a>
-            <a href="about2.html">About</a>
-            <a href="#">Projects</a>
-            <a href="resume2.html">Resume</a>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" target="_blank">Contact</a>
-            <span></span>
-        </nav>
-    </header>
 </body>
 </html>
