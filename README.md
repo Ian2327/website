@@ -1,1 +1,1 @@
-# projects
+Welcome to the code behind my website, please let me know if there is anything to improve.
