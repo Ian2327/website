@@ -239,30 +239,30 @@
             });
         });
     </script> -->
-    <script>
+    <script> 
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('repoForm').addEventListener('submit', function (event) {
                 event.preventDefault();
-
+    
                 const repoSelect = document.getElementById('repoSelect');
                 const repoUrl = repoSelect.value;
                 const fileList = document.getElementById('fileList');
                 const codeBox = document.getElementById('codeBox');
                 const fileContent = document.getElementById('fileContent');
-
+    
                 if (repoUrl === "none") {
                     alert("Please select a valid repository.");
                     return;
                 }
-
+    
                 // Parse the repo URL to get the owner and repo name
                 const urlParts = repoUrl.replace('https://github.com/', '').split('/');
                 const owner = urlParts[0];
                 const repo = urlParts[1];
-
+    
                 // Use GitHub API to fetch repository contents
                 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents`;
-
+    
                 fetch(apiUrl)
                     .then(response => {
                         if (!response.ok) {
@@ -273,28 +273,28 @@
                     .then(data => {
                         fileList.innerHTML = ''; // Clear the list first
                         codeBox.style.display = 'none'; // Hide code box initially
-
+    
                         data.forEach(item => {
                             const li = document.createElement('li');
                             li.textContent = item.name;
-
+    
                             if (item.type === 'dir') {
                                 // Create a collapsible folder
                                 const folderIcon = document.createElement('span');
                                 folderIcon.textContent = '📁 ';
                                 folderIcon.style.cursor = 'pointer';
                                 folderIcon.style.backgroundColor = 'inherit';
-
+    
                                 li.prepend(folderIcon);
                                 fileList.appendChild(li);
-
+    
                                 const subList = document.createElement('ul');
                                 subList.style.display = 'none'; // Initially hidden
                                 li.appendChild(subList);
-
+    
                                 // Add click event to the li itself
                                 li.addEventListener('click', function (event) {
-                                    // Prevent the icon click from bubbling up
+                                    event.stopPropagation(); // Prevent event from bubbling up to parent items
                                     if (subList.style.display === 'none') {
                                         fetchFolderContents(item.path, subList);
                                         subList.style.display = 'block'; // Expand folder
@@ -304,7 +304,8 @@
                                 });
                             } else {
                                 // Add click event to fetch file content when clicked
-                                li.addEventListener('click', function () {
+                                li.addEventListener('click', function (event) {
+                                    event.stopPropagation(); // Prevent collapsing when clicking on a file
                                     fetchFileContent(item.download_url);
                                 });
                                 fileList.appendChild(li);
@@ -315,11 +316,11 @@
                         fileList.innerHTML = 'Error fetching repository data!';
                         console.error('Error:', error);
                     });
-
+    
                 // Function to fetch folder contents recursively
                 function fetchFolderContents(folderPath, subList) {
                     const folderApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folderPath}`;
-
+    
                     fetch(folderApiUrl)
                         .then(response => response.json())
                         .then(data => {
@@ -327,20 +328,20 @@
                             data.forEach(item => {
                                 const subLi = document.createElement('li');
                                 subLi.textContent = item.name;
-
+    
                                 if (item.type === 'dir') {
                                     const folderIcon = document.createElement('span');
                                     folderIcon.textContent = '📁 ';
                                     folderIcon.style.cursor = 'pointer';
                                     folderIcon.style.backgroundColor = 'inherit';
-
+    
                                     subLi.prepend(folderIcon);
                                     subList.appendChild(subLi);
-
+    
                                     const nestedSubList = document.createElement('ul');
                                     nestedSubList.style.display = 'none'; // Initially hidden
                                     subLi.appendChild(nestedSubList);
-
+    
                                     subLi.addEventListener('click', function (event) {
                                         event.stopPropagation(); // Prevent the event from bubbling
                                         if (nestedSubList.style.display === 'none') {
@@ -352,7 +353,8 @@
                                     });
                                 } else {
                                     // Fetch file content on click
-                                    subLi.addEventListener('click', function () {
+                                    subLi.addEventListener('click', function (event) {
+                                        event.stopPropagation(); // Prevent collapsing when clicking on a file
                                         fetchFileContent(item.download_url);
                                     });
                                     subList.appendChild(subLi);
@@ -363,7 +365,7 @@
                             console.error('Error fetching folder contents:', error);
                         });
                 }
-
+    
                 // Function to fetch and display the file content
                 function fetchFileContent(fileUrl) {
                     fetch(fileUrl)
@@ -379,10 +381,11 @@
                 }
             });
         });
-
     </script>
+    
 
     <style>
+        
         * {
             padding: 0;
             box-sizing: border-box;
@@ -391,7 +394,7 @@
             color: aliceblue;
             text-decoration: none;
         }
-
+        
         h1,
         h2,
         h3,
@@ -630,7 +633,7 @@
         li {
             background-color: inherit;
             margin-right: 10px;
-            font-size: 0.90em;
+            font-size: 0.97em;
             margin-left: 15px;
         }
 
@@ -788,8 +791,9 @@
             background-color: #5f5f5f;
             margin: 5px 0;
             border-radius: 3px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.1);
             cursor: pointer;
+            font-size: inherit;
         }
 
         pre {
