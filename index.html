@@ -322,10 +322,19 @@
             content: '';
             position: absolute;
             left: 5px;
-            top: 1.2rem;
+            top: 1.35rem;
             width: 2px;
             height: calc(100% + 1rem);
-            background-color: var(--border-light);
+            background-color: var(--timeline-line-color);
+        }
+
+        /* Timeline line colors for light and dark modes */
+        :root {
+            --timeline-line-color: #dee2e6; /* Light grey for light mode */
+        }
+
+        [data-theme="dark"] {
+            --timeline-line-color: #5a6c7d; /* Visible grey for dark mode */
         }
 
         .timeline-item:last-child::after {
@@ -870,7 +879,8 @@
                     
                     if (targetElement) {
                         const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                        const targetPosition = targetElement.offsetTop - navbarHeight + 80;
+                        const mobileOffset  = window.innerWidth < 700 ? 400 : 80;
+                        const targetPosition = targetElement.offsetTop - navbarHeight + mobileOffset;
                         
                         window.scrollTo({
                             top: targetPosition,
