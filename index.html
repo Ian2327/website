@@ -944,18 +944,20 @@
             
             function updateNavbarOpacity() {
                 const scrolled = window.scrollY;
-                const rate = scrolled * 0.01;
                 
-                if (scrolled > 50) {
+                if (scrolled > 10) {
                     navbar.style.backgroundColor = 'var(--navbar-bg)';
                     navbar.style.backdropFilter = 'blur(10px)';
                 } else {
-                    navbar.style.backgroundColor = `rgba(255, 255, 255, ${0.95 - rate})`;
-                    navbar.style.backdropFilter = `blur(${10 - rate * 5}px)`;
+                    const opacity = Math.max(0.7, 0.95 - (scrolled * 0.005));
+                    navbar.style.backgroundColor = `var(--navbar-bg)`;
+                    navbar.style.opacity = opacity;
+                    navbar.style.backdropFilter = `blur(${Math.max(5, 10 - (scrolled * 0.1))}px)`;
                 }
             }
             
             window.addEventListener('scroll', updateNavbarOpacity);
+            updateNavbarOpacity();
         });
 
         // Skill tags hover effect enhancement
