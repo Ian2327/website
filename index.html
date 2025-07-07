@@ -884,7 +884,19 @@
                     
                     if (targetElement) {
                         const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                        const mobileOffset  = window.innerWidth < 992 ? 400 : 80;
+                        
+                        // Check if this is a stats section link
+                        const isStatsLink = link.classList.contains('stat-number');
+                        
+                        let mobileOffset;
+                        if (isStatsLink) {
+                            // Smaller offset for stats links
+                            mobileOffset = window.innerWidth < 992 ? 80 : 80;
+                        } else {
+                            // Regular offset for navbar links
+                            mobileOffset = window.innerWidth < 992 ? 400 : 80;
+                        }
+                        
                         const targetPosition = targetElement.offsetTop - navbarHeight + mobileOffset;
                         
                         window.scrollTo({
