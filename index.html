@@ -155,8 +155,26 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            width: auto;
+            min-width: 60px; /* Ensure consistent minimum width */
         }
 
+        /* Add space between Contact link and toggle only on larger screens */
+        @media (min-width: 992px) {
+            .dark-mode-toggle {
+                margin-left: 1rem;
+            }
+        }
+
+        .dark-mode-toggle i {
+            width: 16px;
+            height: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
         .dark-mode-toggle:hover {
             background-color: var(--accent-color);
             color: white;
