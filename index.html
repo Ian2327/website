@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ian Setia - Computer Science</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -26,8 +29,8 @@
             --bg-primary: #ffffff;
             --card-bg: #ffffff;
             --navbar-bg: rgba(255, 255, 255, 0.95);
-            --shadow: rgba(0,0,0,0.1);
-            --shadow-hover: rgba(0,0,0,0.15);
+            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow-hover: rgba(0, 0, 0, 0.15);
         }
 
         [data-theme="dark"] {
@@ -41,8 +44,8 @@
             --bg-primary: #1a252f;
             --card-bg: #34495e;
             --navbar-bg: rgba(26, 37, 47, 0.95);
-            --shadow: rgba(0,0,0,0.3);
-            --shadow-hover: rgba(0,0,0,0.4);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.4);
         }
 
         * {
@@ -89,9 +92,11 @@
                 transform: scale(0);
                 opacity: 1;
             }
+
             70% {
                 opacity: 0.8;
             }
+
             100% {
                 transform: scale(3);
                 opacity: 0;
@@ -156,7 +161,8 @@
             position: relative;
             overflow: hidden;
             width: auto;
-            min-width: 60px; /* Ensure consistent minimum width */
+            min-width: 60px;
+            /* Ensure consistent minimum width */
         }
 
         /* Add space between Contact link and toggle only on larger screens */
@@ -174,7 +180,7 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
-        
+
         .dark-mode-toggle:hover {
             background-color: var(--accent-color);
             color: white;
@@ -309,7 +315,14 @@
 
         .skill-tag {
             display: inline-block;
-            background: linear-gradient(135deg, var(--accent-color), #2980b9);
+            background: linear-gradient(-60deg,
+                    #2980b9 25%,
+                    var(--accent-color) 50%,
+                    #2980b9 75%);
+            background-size: 200% 100%;
+            /* wider so we can slide it */
+            background-position: 100% 0;
+            /* starting point (right) */
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 25px;
@@ -317,7 +330,16 @@
             font-weight: 500;
             margin: 0.25rem;
             transition: all 0.3s ease;
+            animation: shimmer 2s infinite linear;
         }
+
+        @keyframes shimmer {
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+
 
         .skill-tag:hover {
             transform: scale(1.05);
@@ -353,11 +375,13 @@
 
         /* Timeline line colors for light and dark modes */
         :root {
-            --timeline-line-color: #dee2e6; /* Light grey for light mode */
+            --timeline-line-color: #dee2e6;
+            /* Light grey for light mode */
         }
 
         [data-theme="dark"] {
-            --timeline-line-color: #5a6c7d; /* Visible grey for dark mode */
+            --timeline-line-color: #5a6c7d;
+            /* Visible grey for dark mode */
         }
 
         .timeline-item:last-child::after {
@@ -436,12 +460,12 @@
             .hero-title {
                 font-size: 2.25rem;
             }
-            
+
             .contact-info {
                 justify-content: center;
                 text-align: center;
             }
-            
+
             .section-title {
                 font-size: 1.875rem;
             }
@@ -477,6 +501,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
@@ -522,14 +547,16 @@
                 <div class="col-lg-8">
                     <h1 class="hero-title fade-in">Ian Setia</h1>
                     <p class="hero-subtitle fade-in">Computer Science Major | Researcher | Innovation Enthusiast</p>
-                    <p class="lead fade-in">Passionate about advancing computer science through research, with expertise in machine learning, robotics, and data analytics.</p>
-                    
+                    <p class="lead fade-in">Passionate about advancing computer science through research, with expertise
+                        in machine learning, robotics, and data analytics.</p>
+
                     <div class="contact-info fade-in">
                         <a href="tel:+19842427481" class="contact-item">
                             <i class="fas fa-phone"></i>
                             <span>+1 (984) 242-7481</span>
                         </a>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" class="contact-item" target="_blank">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" class="contact-item"
+                            target="_blank">
                             <i class="fas fa-envelope"></i>
                             <span>isetia@nd.edu</span>
                         </a>
@@ -592,7 +619,7 @@
                             <span class="skill-tag">HTML/CSS</span>
                             <span class="skill-tag">Shell Script</span>
                         </div>
-                        
+
                         <h5 class="mb-3">Databases & Tools</h5>
                         <div class="mb-4">
                             <span class="skill-tag">MySQL</span>
@@ -601,7 +628,7 @@
                             <span class="skill-tag">Nano</span>
                             <span class="skill-tag">LaTeX</span>
                         </div>
-                        
+
                         <h5 class="mb-3">Frameworks & Libraries</h5>
                         <div class="mb-4">
                             <span class="skill-tag">TensorFlow</span>
@@ -613,7 +640,7 @@
                             <span class="skill-tag">Clojure</span>
                             <span class="skill-tag">REST</span>
                         </div>
-                        
+
                         <h5 class="mb-3">Productivity Software</h5>
                         <div class="mb-4">
                             <span class="skill-tag">Microsoft Office</span>
@@ -662,7 +689,8 @@
                             <h5 class="text-primary d-flex justify-content-between align-items-center">
                                 Cardinal Gibbons High School
                                 <img src="CGHS.png" alt="" width="40px" class="me-4">
-                            </h5>                            <p class="text-muted mb-2">Raleigh, North Carolina</p>
+                            </h5>
+                            <p class="text-muted mb-2">Raleigh, North Carolina</p>
                             <p class="mb-1"><strong>Graduated:</strong> May 2023</p>
                             <p class="mb-0"><strong>Weighted GPA:</strong> 4.896</p>
                             <p class="mb-0"><strong>Unweighted GPA:</strong> 4.0</p>
@@ -687,10 +715,15 @@
                         <div class="card-body">
                             <h6 class="text-primary">Mendoza College of Business at University of Notre Dame</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-2">• Building a predictive ML model to predict conference paper status given current metadata</li>
-                                <li class="mb-2">• Developed scalable web scrapers and leveraged APIs to collect metadata from conference papers, automating data extraction and analysis from both static and dynamic content</li>
-                                <li class="mb-2">• Created scripts for collecting, cleaning, and analyzing conference author/paper metadata using Python and the OpenReview API</li>
-                                <li>• Published software documentation on all written code, research procedures, and data results</li>
+                                <li class="mb-2">• Building a predictive ML model to predict conference paper status
+                                    given current metadata</li>
+                                <li class="mb-2">• Developed scalable web scrapers and leveraged APIs to collect
+                                    metadata from conference papers, automating data extraction and analysis from both
+                                    static and dynamic content</li>
+                                <li class="mb-2">• Created scripts for collecting, cleaning, and analyzing conference
+                                    author/paper metadata using Python and the OpenReview API</li>
+                                <li>• Published software documentation on all written code, research procedures, and
+                                    data results</li>
                             </ul>
                         </div>
                     </div>
@@ -704,10 +737,14 @@
                         <div class="card-body">
                             <h6 class="text-primary">Cooperative Computing Lab at University of Notre Dame</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-2">• Improving TaskVine (a distributed computing framework) reliability and workflows according to coding standards</li>
-                                <li class="mb-2">• Resolved 411,000 memory errors and improved computation efficiency by redesigning hashing algorithms</li>
-                                <li class="mb-2">• Designed Python scripts for task scheduling, resource allocation, and data distribution across distributed systems</li>
-                                <li>• Researched the integration of LLMs in memory-based error debugging prior to deployment</li>
+                                <li class="mb-2">• Improving TaskVine (a distributed computing framework) reliability
+                                    and workflows according to coding standards</li>
+                                <li class="mb-2">• Resolved 411,000 memory errors and improved computation efficiency by
+                                    redesigning hashing algorithms</li>
+                                <li class="mb-2">• Designed Python scripts for task scheduling, resource allocation, and
+                                    data distribution across distributed systems</li>
+                                <li>• Researched the integration of LLMs in memory-based error debugging prior to
+                                    deployment</li>
                             </ul>
                         </div>
                     </div>
@@ -721,10 +758,14 @@
                         <div class="card-body">
                             <h6 class="text-primary">FIRST Tech Challenge</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-2">• Led a cross-functional team of 8 students as Lead Software Engineer and headed the Autonomous software development</li>
-                                <li class="mb-2">• Onboarded new team members with an introduction to Java, Git, and the FIRST control framework</li>
-                                <li class="mb-2">• Implemented an auto-alignment system with Vuforia image recognition and TensorFlow object detection</li>
-                                <li>• Filed 2 patents for a “Foot-Operated Robot Interface” and a “Swerve-Drive Robot”</li>
+                                <li class="mb-2">• Led a cross-functional team of 8 students as Lead Software Engineer
+                                    and headed the Autonomous software development</li>
+                                <li class="mb-2">• Onboarded new team members with an introduction to Java, Git, and the
+                                    FIRST control framework</li>
+                                <li class="mb-2">• Implemented an auto-alignment system with Vuforia image recognition
+                                    and TensorFlow object detection</li>
+                                <li>• Filed 2 patents for a “Foot-Operated Robot Interface” and a “Swerve-Drive Robot”
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -738,8 +779,10 @@
                         <div class="card-body">
                             <h6 class="text-primary">University of Notre Dame</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-2">• Collaborated with a team of 12 counselors to coordinate and lead engaging activities for campers</li>
-                                <li class="mb-2">• Mentored 131 high school campers on software design and implementation throughout the robot project</li>
+                                <li class="mb-2">• Collaborated with a team of 12 counselors to coordinate and lead
+                                    engaging activities for campers</li>
+                                <li class="mb-2">• Mentored 131 high school campers on software design and
+                                    implementation throughout the robot project</li>
                             </ul>
                         </div>
                     </div>
@@ -754,8 +797,10 @@
                         <div class="card-body">
                             <h6 class="text-primary">University of Notre Dame</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-2">• Tutored student-athletes in Calculus, Linear Algebra, and Electro Magnetism</li>
-                                <li class="mb-2">• Developed personalized study strategies and time management skills</li>
+                                <li class="mb-2">• Tutored student-athletes in Calculus, Linear Algebra, and Electro
+                                    Magnetism</li>
+                                <li class="mb-2">• Developed personalized study strategies and time management skills
+                                </li>
                                 <li class="mb-2">• Collaborated with academic advisors and coaching staff</li>
                                 <li>• Fostered positive learning environments for academic growth</li>
                             </ul>
@@ -772,8 +817,10 @@
                         <div class="card-body">
                             <h6 class="text-primary">Notre Dame Sustainability</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-2">• Led sustainability initiatives at football tailgates to educate guests on recycling policies, boosting recycling rates from 9% to 15%</li>
-                                <li>• Supported university recycling programs, doubling diverted materials from the landfill from 25.97 to 50.16 tons in a year</li>
+                                <li class="mb-2">• Led sustainability initiatives at football tailgates to educate
+                                    guests on recycling policies, boosting recycling rates from 9% to 15%</li>
+                                <li>• Supported university recycling programs, doubling diverted materials from the
+                                    landfill from 25.97 to 50.16 tons in a year</li>
                             </ul>
                         </div>
                     </div>
@@ -860,9 +907,11 @@
             <h2 class="section-title fade-in text-center">Get In Touch</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center fade-in">
-                    <p class="lead mb-4">I'm always interested in discussing research opportunities, collaborations, or innovative projects in computer science.</p>
+                    <p class="lead mb-4">I'm always interested in discussing research opportunities, collaborations, or
+                        innovative projects in computer science.</p>
                     <div class="d-flex justify-content-center flex-wrap gap-4">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" class="btn btn-primary btn-lg" target="_blank">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu"
+                            class="btn btn-primary btn-lg" target="_blank">
                             <i class="fas fa-envelope me-2"></i>Send Email
                         </a>
                         <a href="tel:+19842427481" class="btn btn-outline-primary btn-lg">
@@ -887,17 +936,17 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         // Dark Mode Toggle with Ripple Effect
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const darkModeToggle = document.getElementById('darkModeToggle');
             const darkModeIcon = document.getElementById('darkModeIcon');
             const body = document.body;
-            
+
             // Check for saved theme preference or default to light mode
             const currentTheme = localStorage.getItem('theme') || 'light';
-            
+
             // Apply the saved theme
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'dark');
@@ -906,38 +955,38 @@
                 body.removeAttribute('data-theme');
                 darkModeIcon.className = 'fas fa-moon';
             }
-            
+
             // Dark mode toggle with ripple effect
-            darkModeToggle.addEventListener('click', function(e) {
+            darkModeToggle.addEventListener('click', function (e) {
                 const rect = darkModeToggle.getBoundingClientRect();
                 const x = e.clientX;
                 const y = e.clientY;
-                
+
                 // Create ripple element
                 const ripple = document.createElement('div');
                 ripple.className = 'theme-ripple';
-                
+
                 // Position ripple at click location
                 const size = Math.max(window.innerWidth, window.innerHeight) * 2;
                 ripple.style.width = ripple.style.height = size + 'px';
                 ripple.style.left = (x - size / 2) + 'px';
                 ripple.style.top = (y - size / 2) + 'px';
-                
+
                 // Add appropriate ripple class based on current theme
                 const isDark = body.hasAttribute('data-theme');
                 ripple.classList.add(isDark ? 'dark-to-light' : 'light-to-dark');
-                
+
                 // Add ripple to body
                 document.body.appendChild(ripple);
-                
+
                 // Disable transitions temporarily
                 body.classList.add('theme-transitioning');
-                
+
                 // Start ripple animation
                 requestAnimationFrame(() => {
                     ripple.classList.add('animate');
                 });
-                
+
                 // Toggle theme after a short delay
                 setTimeout(() => {
                     if (isDark) {
@@ -949,11 +998,11 @@
                         darkModeIcon.className = 'fas fa-sun';
                         localStorage.setItem('theme', 'dark');
                     }
-                    
+
                     // Re-enable transitions
                     body.classList.remove('theme-transitioning');
                 }, 300);
-                
+
                 // Remove ripple element after animation
                 setTimeout(() => {
                     if (ripple.parentNode) {
@@ -964,22 +1013,22 @@
         });
 
         // Smooth scrolling for navigation links
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('a[href^="#"]');
-            
+
             navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     e.preventDefault();
-                    
+
                     const targetId = this.getAttribute('href').substring(1);
                     const targetElement = document.getElementById(targetId);
-                    
+
                     if (targetElement) {
                         const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                        
+
                         // Check if this is a stats section link
                         const isStatsLink = link.classList.contains('stat-number');
-                        
+
                         let mobileOffset;
                         if (isStatsLink) {
                             // Smaller offset for stats links
@@ -988,9 +1037,9 @@
                             // Regular offset for navbar links
                             mobileOffset = window.innerWidth < 992 ? 400 : 80;
                         }
-                        
+
                         const targetPosition = targetElement.offsetTop - navbarHeight + mobileOffset;
-                        
+
                         window.scrollTo({
                             top: targetPosition,
                             behavior: 'smooth'
@@ -1001,37 +1050,37 @@
         });
 
         // Fade-in animation on scroll
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
             };
-            
-            const observer = new IntersectionObserver(function(entries) {
+
+            const observer = new IntersectionObserver(function (entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
             }, observerOptions);
-            
+
             const fadeElements = document.querySelectorAll('.fade-in');
             fadeElements.forEach(el => observer.observe(el));
         });
 
         // Active navigation link highlighting
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-            
+
             function updateActiveLink() {
                 const scrollPosition = window.scrollY + 100;
-                
+
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.offsetHeight;
                     const sectionId = section.getAttribute('id');
-                    
+
                     if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                         navLinks.forEach(link => {
                             link.classList.remove('active');
@@ -1042,18 +1091,18 @@
                     }
                 });
             }
-            
+
             window.addEventListener('scroll', updateActiveLink);
             updateActiveLink(); // Initial call
         });
 
         // Navbar background opacity on scroll
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const navbar = document.querySelector('.navbar');
-            
+
             function updateNavbarOpacity() {
                 const scrolled = window.scrollY;
-                
+
                 if (scrolled > 10) {
                     navbar.style.backgroundColor = 'var(--navbar-bg)';
                     navbar.style.backdropFilter = 'blur(10px)';
@@ -1064,37 +1113,37 @@
                     navbar.style.backdropFilter = `blur(${Math.max(5, 10 - (scrolled * 0.1))}px)`;
                 }
             }
-            
+
             window.addEventListener('scroll', updateNavbarOpacity);
             updateNavbarOpacity();
         });
 
         // Skill tags hover effect enhancement
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const skillTags = document.querySelectorAll('.skill-tag');
-            
+
             skillTags.forEach(tag => {
-                tag.addEventListener('mouseenter', function() {
+                tag.addEventListener('mouseenter', function () {
                     this.style.transform = 'scale(1.05) rotate(2deg)';
                 });
-                
-                tag.addEventListener('mouseleave', function() {
+
+                tag.addEventListener('mouseleave', function () {
                     this.style.transform = 'scale(1) rotate(0deg)';
                 });
             });
         });
 
         // Contact form animations and interactions
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const contactItems = document.querySelectorAll('.contact-item');
-            
+
             contactItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
+                item.addEventListener('mouseenter', function () {
                     const icon = this.querySelector('i');
                     icon.style.transform = 'scale(1.2) rotate(10deg)';
                 });
-                
-                item.addEventListener('mouseleave', function() {
+
+                item.addEventListener('mouseleave', function () {
                     const icon = this.querySelector('i');
                     icon.style.transform = 'scale(1) rotate(0deg)';
                 });
@@ -1102,19 +1151,19 @@
         });
 
         // Stats counter animation
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const statNumbers = document.querySelectorAll('.stat-number');
             let animated = false;
-            
+
             function animateStats() {
                 if (animated) return;
-                
+
                 statNumbers.forEach(stat => {
                     const finalValue = stat.textContent;
                     const isGPA = finalValue.includes('.');
                     const isYear = finalValue.includes('2026');
                     const hasPlus = finalValue.includes('+');
-                    
+
                     if (isGPA) {
                         animateValue(stat, 0, parseFloat(finalValue), 2000, 2);
                     } else if (isYear) {
@@ -1126,93 +1175,93 @@
                         animateValue(stat, 0, parseInt(finalValue), 2000, 0);
                     }
                 });
-                
+
                 animated = true;
             }
-            
+
             function animateValue(element, start, end, duration, decimal = 0, suffix = '') {
                 const startTime = performance.now();
-                
+
                 function updateValue(currentTime) {
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    
+
                     const easeOutQuart = 1 - Math.pow(1 - progress, 4);
                     const current = start + (end - start) * easeOutQuart;
-                    
+
                     element.textContent = current.toFixed(decimal) + suffix;
-                    
+
                     if (progress < 1) {
                         requestAnimationFrame(updateValue);
                     }
                 }
-                
+
                 requestAnimationFrame(updateValue);
             }
-            
+
             // Trigger animation when stats section is visible
             const statsSection = document.querySelector('.stats-section');
-            const statsObserver = new IntersectionObserver(function(entries) {
+            const statsObserver = new IntersectionObserver(function (entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         animateStats();
                     }
                 });
             }, { threshold: 0.5 });
-            
+
             if (statsSection) {
                 statsObserver.observe(statsSection);
             }
         });
 
         // Parallax effect for hero section
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const heroSection = document.querySelector('.hero-section');
-            
+
             if (heroSection) {
-                window.addEventListener('scroll', function() {
+                window.addEventListener('scroll', function () {
                     const scrolled = window.pageYOffset;
                     const rate = scrolled * -0.5;
-                    
+
                     heroSection.style.transform = `translateY(${rate}px)`;
                 });
             }
         });
 
         // Card hover effects enhancement
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.card');
-            
+
             cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
+                card.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-8px) scale(1.02)';
                 });
-                
-                card.addEventListener('mouseleave', function() {
+
+                card.addEventListener('mouseleave', function () {
                     this.style.transform = 'translateY(0) scale(1)';
                 });
             });
         });
 
         // Button click effects
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const buttons = document.querySelectorAll('.btn');
-            
+
             buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
+                button.addEventListener('click', function (e) {
                     const ripple = document.createElement('span');
                     const rect = this.getBoundingClientRect();
                     const size = Math.max(rect.width, rect.height);
                     const x = e.clientX - rect.left - size / 2;
                     const y = e.clientY - rect.top - size / 2;
-                    
+
                     ripple.style.width = ripple.style.height = size + 'px';
                     ripple.style.left = x + 'px';
                     ripple.style.top = y + 'px';
                     ripple.classList.add('ripple-effect');
-                    
+
                     this.appendChild(ripple);
-                    
+
                     setTimeout(() => {
                         ripple.remove();
                     }, 600);
@@ -1221,12 +1270,12 @@
         });
 
         // Mobile menu auto-close
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
             const navbarCollapse = document.querySelector('.navbar-collapse');
-            
+
             navLinks.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function () {
                     if (navbarCollapse.classList.contains('show')) {
                         const bsCollapse = new bootstrap.Collapse(navbarCollapse);
                         bsCollapse.hide();
@@ -1236,8 +1285,8 @@
         });
 
         // Keyboard navigation support
-        document.addEventListener('DOMContentLoaded', function() {
-            document.addEventListener('keydown', function(e) {
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
                     const navbarCollapse = document.querySelector('.navbar-collapse');
                     if (navbarCollapse.classList.contains('show')) {
@@ -1251,7 +1300,7 @@
         // Performance optimization: Throttle scroll events
         function throttle(func, limit) {
             let inThrottle;
-            return function() {
+            return function () {
                 const args = arguments;
                 const context = this;
                 if (!inThrottle) {
@@ -1263,16 +1312,17 @@
         }
 
         // Apply throttling to scroll events
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const scrollEvents = ['scroll'];
-            const throttledScroll = throttle(function() {
+            const throttledScroll = throttle(function () {
                 // Scroll event handlers are already defined above
             }, 16); // ~60fps
-            
+
             scrollEvents.forEach(event => {
                 window.addEventListener(event, throttledScroll);
             });
         });
-    </script>    
+    </script>
 </body>
+
 </html>
