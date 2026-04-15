@@ -6,534 +6,469 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ian Setia - Computer Science</title>
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@400;700;800&family=Fira+Code&display=swap" rel="stylesheet">
 
     <style>
+        /* Base Theme Variables (Dark Liquid Glass) */
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
-            --text-dark: #2c3e50;
-            --text-light: #7f8c8d;
-            --bg-light: #f8f9fa;
-            --border-light: #e9ecef;
-            --bg-primary: #ffffff;
-            --card-bg: #ffffff;
-            --navbar-bg: rgba(255, 255, 255, 0.95);
-            --shadow: rgba(0, 0, 0, 0.1);
-            --shadow-hover: rgba(0, 0, 0, 0.15);
+            --bg-base: #070a13;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(25, 30, 50, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --blob-1: #4f46e5;
+            --blob-2: #0ea5e9;
+            --blob-3: #ec4899;
+            --font-main: 'Outfit', sans-serif;
+            --accent: #38bdf8;
+            --nav-bg: rgba(7, 10, 19, 0.4);
         }
 
-        [data-theme="dark"] {
-            --primary-color: #ecf0f1;
-            --secondary-color: #bdc3c7;
-            --accent-color: #5dade2;
-            --text-dark: #ecf0f1;
-            --text-light: #95a5a6;
-            --bg-light: #2c3e50;
-            --border-light: #34495e;
-            --bg-primary: #1a252f;
-            --card-bg: #34495e;
-            --navbar-bg: rgba(26, 37, 47, 0.95);
-            --shadow: rgba(0, 0, 0, 0.3);
-            --shadow-hover: rgba(0, 0, 0, 0.4);
+        /* Light Theme Overrides */
+        [data-theme="light"] {
+            --bg-base: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-highlight: rgba(255, 255, 255, 0.8);
+            --blob-1: #818cf8;
+            --blob-2: #38bdf8;
+            --blob-3: #f472b6;
+            --accent: #2563eb;
+            --nav-bg: rgba(226, 232, 240, 0.4);
+        }
+
+        /* Anime Theme Overrides */
+        [data-theme="anime"] {
+            --bg-base: #fff0f5;
+            --text-main: #4a4a4a;
+            --text-muted: #7a7a7a;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 182, 193, 0.6);
+            --glass-highlight: rgba(255, 255, 255, 0.9);
+            --blob-1: #ffb7b2;
+            --blob-2: #e2f0cb;
+            --blob-3: #ffdac1;
+            --font-main: 'M PLUS Rounded 1c', sans-serif;
+            --accent: #ff6f91;
+            --nav-bg: rgba(255, 240, 245, 0.5);
+        }
+
+        /* Hacker/Matrix Theme (Easter Egg) */
+        [data-theme="hacker"] {
+            --bg-base: #000000;
+            --text-main: #00ff00;
+            --text-muted: #008800;
+            --glass-bg: rgba(0, 20, 0, 0.8);
+            --glass-border: #00ff00;
+            --glass-highlight: rgba(0, 255, 0, 0.2);
+            --blob-1: #003300;
+            --blob-2: #001100;
+            --blob-3: #002200;
+            --font-main: 'Fira Code', monospace;
+            --accent: #00ff00;
+            --nav-bg: rgba(0, 0, 0, 0.9);
         }
 
         * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        a {
-            text-decoration: none;
+            box-sizing: border-box;
+            transition: color 0.3s ease;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--bg-primary);
-            position: relative;
+            font-family: var(--font-main);
+            color: var(--text-main);
+            background-color: var(--bg-base);
             overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* Ripple Effect Styles */
-        .theme-ripple {
+        a { text-decoration: none; color: var(--accent); }
+        
+        /* Background Liquid Blobs */
+        .blob-container {
             position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            filter: blur(80px);
+        }
+
+        .liquid-blob {
+            position: absolute;
             border-radius: 50%;
-            transform: scale(0);
+            animation: liquid-drift 20s infinite alternate ease-in-out;
+            opacity: 0.6;
+            mix-blend-mode: screen;
+        }
+
+        [data-theme="light"] .liquid-blob, [data-theme="anime"] .liquid-blob { mix-blend-mode: multiply; }
+
+        .blob-1 { width: 50vw; height: 50vw; background: var(--blob-1); top: -10%; left: -10%; }
+        .blob-2 { width: 40vw; height: 40vw; background: var(--blob-2); bottom: -10%; right: -5%; animation-delay: -5s; }
+        .blob-3 { width: 60vw; height: 60vw; background: var(--blob-3); top: 30%; left: 20%; animation-delay: -10s; }
+
+        @keyframes liquid-drift {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(10vw, 15vh) scale(1.2) rotate(180deg); }
+            100% { transform: translate(-15vw, 5vh) scale(0.8) rotate(360deg); }
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, var(--glass-highlight), transparent);
+            transform: skewX(-20deg);
+            transition: 0.7s;
             pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
+        }
+        
+        .glass-panel:hover::before { left: 150%; }
+
+        /* Liquid Morphing Shapes */
+        .liquid-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morph 8s ease-in-out infinite alternate;
         }
 
-        .theme-ripple.light-to-dark {
-            background: radial-gradient(circle, #1a252f 0%, #1a252f 40%, transparent 70%);
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 40% 60% 30% 70% / 40% 40% 60% 50%; }
         }
 
-        .theme-ripple.dark-to-light {
-            background: radial-gradient(circle, #ffffff 0%, #ffffff 40%, transparent 70%);
-        }
-
-        .theme-ripple.animate {
-            animation: rippleExpand 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes rippleExpand {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-
-            70% {
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(3);
-                opacity: 0;
-            }
-        }
-
-        /* Prevent transitions during ripple effect */
-        body.theme-transitioning * {
-            transition: none !important;
-        }
-
+        /* Navbar Styling */
         .navbar {
-            background-color: var(--navbar-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px var(--shadow);
-            transition: all 0.3s ease;
+            background: var(--nav-bg);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            transition: all 0.4s ease;
         }
 
         .navbar-brand {
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            font-size: 1.5rem;
-            color: var(--primary-color) !important;
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--text-main) !important;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .nav-link {
             font-weight: 500;
-            color: var(--text-dark) !important;
-            transition: color 0.3s ease;
+            color: var(--text-muted) !important;
+            margin: 0 10px;
             position: relative;
         }
 
-        .nav-link:hover {
-            color: var(--accent-color) !important;
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main) !important;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background-color: var(--accent-color);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
+        /* 3D Tilt Cards (Subtle Effect) */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            border-radius: 24px;
         }
 
-        .nav-link:hover::after {
-            width: 80%;
+        .tilt-content {
+            transform: translateZ(10px); /* Reduced for subtlety */
         }
 
-        .dark-mode-toggle {
-            background: none;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            border-radius: 50px;
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            width: auto;
-            min-width: 60px;
-            /* Ensure consistent minimum width */
-        }
-
-        /* Add space between Contact link and toggle only on larger screens */
-        @media (min-width: 992px) {
-            .dark-mode-toggle {
-                margin-left: 1rem;
-            }
-        }
-
-        .dark-mode-toggle i {
-            width: 16px;
-            height: 16px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .dark-mode-toggle:hover {
-            background-color: var(--accent-color);
-            color: white;
-            transform-origin: center;
-            transform: scale(1.05);
-        }
-
-        .dark-mode-toggle::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease;
-        }
-
-        .dark-mode-toggle:active::before {
-            width: 200px;
-            height: 200px;
-        }
-
-        .hero-section {
-            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-primary) 100%);
-            padding: 4rem 0;
-            margin-top: 76px;
-        }
-
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+        /* Specific Component Styling */
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1.5rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--text-main);
+        }
+
+        .card-body { padding: 1.5rem; color: var(--text-muted); }
+        .text-primary { color: var(--accent) !important; }
+        .text-muted { color: var(--text-muted) !important; }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+            display: inline-block;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 10rem 0 6rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-text {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
             margin-bottom: 1rem;
+            background: linear-gradient(120deg, var(--text-main), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-light);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--accent);
             margin-bottom: 1.5rem;
         }
 
-        .lead {
-            color: var(--text-dark);
-        }
-
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .contact-item {
+        .hero-blob-wrapper {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: color 0.3s ease;
+            justify-content: center;
+        }
+
+        .hero-blob-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--blob-1), var(--accent));
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        .hero-blob-inner {
+            width: 95%;
+            height: 95%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-main);
+            border: 2px solid var(--glass-border);
+        }
+
+        /* Contact Items */
+        .contact-info { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .contact-item {
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            color: var(--text-main);
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .contact-item:hover {
-            color: var(--accent-color);
+            transform: scale(1.05) translateY(-5px);
+            background: var(--glass-highlight);
+            border-color: var(--accent);
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.25rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-color);
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 5px 25px var(--shadow);
-            transition: all 0.3s ease;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: var(--card-bg);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px var(--shadow-hover);
-        }
-
-        .card-body {
-            background-color: var(--card-bg);
-            color: var(--text-dark);
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 1.25rem;
-            font-weight: 600;
-        }
-
-        .education-card .card-header {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-        }
-
-        .experience-card .card-header {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-        }
-
-        .achievement-card .card-header {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-        }
-
-        .service-card .card-header {
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-        }
-
-        .skill-tag {
-            display: inline-block;
-            background: linear-gradient(-60deg,
-                    #2980b9 25%,
-                    var(--accent-color) 50%,
-                    #2980b9 75%);
-            background-size: 200% 100%;
-            /* wider so we can slide it */
-            background-position: 100% 0;
-            /* starting point (right) */
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin: 0.25rem;
-            transition: all 0.3s ease;
-            animation: shimmer 2s infinite linear;
-        }
-
-        @keyframes shimmer {
-            100% {
-                background-position: -100% 0;
-            }
-        }
-
-
-
-        .skill-tag:hover {
-            transform: scale(1.05);
-            box-shadow: 0 3px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 1.35rem;
-            width: 2px;
-            height: calc(100% + 1rem);
-            background-color: var(--timeline-line-color);
-        }
-
-        /* Timeline line colors for light and dark modes */
-        :root {
-            --timeline-line-color: #dee2e6;
-            /* Light grey for light mode */
-        }
-
-        [data-theme="dark"] {
-            --timeline-line-color: #5a6c7d;
-            /* Visible grey for dark mode */
-        }
-
-        .timeline-item:last-child::after {
-            display: none;
-        }
-
-        .patent-highlight {
-            border-left: 4px solid var(--accent-color);
-            background: linear-gradient(90deg, rgba(52, 152, 219, 0.05), transparent);
-        }
-
-        .stats-section {
-            background: var(--bg-light);
-            padding: 3rem 0;
-            margin: 3rem 0;
-        }
-
+        /* Responsive Stats */
         .stat-item {
             text-align: center;
-            padding: 1.5rem;
+            padding: clamp(1rem, 3vw, 2rem);
+            border-radius: 24px;
+            transition: transform 0.3s ease;
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
+            font-size: clamp(1.8rem, 5vw, 4rem); /* Responsive typography */
+            font-weight: 800;
+            color: var(--text-main);
             display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .stat-number.shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            color: #ef4444 !important;
         }
 
-        .stat-label {
-            color: var(--text-light);
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .stat-label { 
+            font-size: clamp(0.7rem, 2vw, 1rem); /* Responsive label */
+            font-weight: 500; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        /* Skills */
+        .skill-tag {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
             font-weight: 500;
-            margin-top: 0.5rem;
+            margin: 0.3rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .bg-light {
-            background-color: var(--bg-light) !important;
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: -1;
         }
 
-        .text-primary {
-            color: var(--accent-color) !important;
+        .skill-tag:hover::before { width: 200%; height: 200%; }
+        .skill-tag:hover { color: #fff; border-color: var(--accent); }
+
+        /* Timeline Items */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 2px solid var(--glass-border);
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -6px; top: 0;
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        .text-muted {
-            color: var(--text-light) !important;
+        ul.list-unstyled li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        ul.list-unstyled li::before {
+            content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: bold;
         }
 
-        .btn-primary {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
+        /* Buttons */
+        .btn-theme {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+        .btn-theme:hover { background: var(--glass-highlight); transform: scale(1.1); }
+
+        /* Anime Mode Specifics - Cherry Blossoms */
+        #petal-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 100; display: none; overflow: hidden;
+        }
+        [data-theme="anime"] #petal-container { display: block; }
+
+        .petal {
+            position: absolute; background: #ffb7c5; border-radius: 150% 0 150% 0;
+            animation: fall linear infinite; opacity: 0.8;
+            box-shadow: 0 0 10px rgba(255, 183, 197, 0.5);
         }
 
-        .btn-primary:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(100px); }
         }
 
-        .btn-outline-primary {
-            color: var(--accent-color);
-            border-color: var(--accent-color);
+        /* Hacking overlay */
+        #matrix-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; display: none; opacity: 0.3; pointer-events: none;
         }
+        [data-theme="hacker"] #matrix-canvas { display: block; }
+        [data-theme="hacker"] .blob-container { display: none; }
 
-        .btn-outline-primary:hover {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
+        /* Easter Egg Logo Spin */
+        .spin-egg { animation: spin 0.5s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.25rem;
-            }
-
-            .contact-info {
-                justify-content: center;
-                text-align: center;
-            }
-
-            .section-title {
-                font-size: 1.875rem;
-            }
-
-            .dark-mode-toggle {
-                margin-top: 0.5rem;
-            }
-
-            .navbar-nav {
-                text-align: center;
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Dark mode specific overrides */
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28236, 240, 241, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        [data-theme="dark"] .footer {
-            background-color: #1a252f;
-            border-top: 1px solid var(--border-light);
-        }
     </style>
 </head>
 
 <body>
-    <!-- Navigation -->
+    <div class="blob-container">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
+        <div class="liquid-blob blob-3"></div>
+    </div>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <div id="petal-container"></div>
+
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#home">Ian Setia</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-water text-primary" id="navLogo"></i> Ian Setia
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars" style="color: var(--text-main);"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#education">Education</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#experience">Experience</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#achievements">Achievements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <button class="dark-mode-toggle" id="darkModeToggle">
-                            <i class="fas fa-moon" id="darkModeIcon"></i>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+                    
+                    <li class="nav-item ms-lg-3 d-flex gap-2 mt-3 mt-lg-0">
+                        <button class="btn-theme" id="themeToggle" title="Toggle Light/Dark">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                        </button>
+                        <button class="btn-theme" id="animeToggle" title="Anime Mode (Easter Egg)">
+                            🌸
                         </button>
                     </li>
                 </ul>
@@ -541,179 +476,163 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h1 class="hero-title fade-in">Ian Setia</h1>
-                    <p class="hero-subtitle fade-in">Computer Science Major | Researcher | Innovation Enthusiast</p>
-                    <p class="lead fade-in">Passionate about advancing computer science through research, with expertise
-                        in machine learning, robotics, and data analytics.</p>
+            <div class="row align-items-center flex-column-reverse flex-lg-row">
+                <div class="col-lg-7 mt-5 mt-lg-0 tilt-card" data-tilt>
+                    <div class="glass-panel p-5 tilt-content" style="border-radius: 40px;">
+                        <h1 class="hero-text">Ian Setia</h1>
+                        <p class="hero-subtitle">Computer Science Major | Researcher | Innovation Enthusiast</p>
+                        <p class="lead" style="font-size: 1.2rem; color: var(--text-muted);">
+                            Passionate about advancing computer science through research, with expertise in machine learning, robotics, and data analytics.
+                        </p>
 
-                    <div class="contact-info fade-in">
-                        <a href="tel:+19842427481" class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+1 (984) 242-7481</span>
-                        </a>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" class="contact-item"
-                            target="_blank">
-                            <i class="fas fa-envelope"></i>
-                            <span>isetia@nd.edu</span>
-                        </a>
-                        <a href="https://maps.google.com/?q=41.699190,-86.238714" class="contact-item" target="_blank">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Notre Dame, IN</span>
-                        </a>
+                        <div class="contact-info">
+                            <a href="tel:+19842427481" class="contact-item">
+                                <i class="fas fa-phone text-primary"></i> +1 (984) 242-7481
+                            </a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu" class="contact-item" target="_blank">
+                                <i class="fas fa-envelope text-primary"></i> isetia@nd.edu
+                            </a>
+                            <a href="https://maps.google.com/?q=41.699190,-86.238714" class="contact-item" target="_blank">
+                                <i class="fas fa-map-marker-alt text-primary"></i> Notre Dame, IN
+                            </a>
+                            <a href="https://github.com/Ian2327" class="contact-item" target="_blank">
+                                <i class="bi bi-github text-primary"></i> GitHub
+                            </a>
+                            <a href="https://www.linkedin.com/in/ian-setia" class="contact-item" target="_blank">
+                                <i class="bi bi-linkedin text-primary"></i> LinkedIn
+                            </a>
+                        </div>
                     </div>
-                    <div class="contact-info fade-in">
-                        <a href="https://github.com/Ian2327" class="contact-item" target="_blank">
-                            <i class="bi bi-github"></i>
-                            <span>GitHub</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/ian-setia" class="contact-item" target="_blank">
-                            <i class="bi bi-linkedin"></i>
-                            <span>LinkedIn</span>
-                        </a>
+                </div>
+                <div class="col-lg-5 text-center tilt-card" data-tilt>
+                    <div class="hero-blob-wrapper tilt-content">
+                        <div class="hero-blob-bg liquid-shape"></div>
+                        <div class="hero-blob-inner liquid-shape">
+                            <i class="fas fa-code"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
+    <section class="py-5 relative">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-6">
-                    <div class="stat-item fade-in">
-                        <a class="stat-number" href="#education">3.943</a>
-                        <div class="stat-label">GPA</div>
+            <div class="row g-4">
+                <div class="col-md-3 col-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel stat-item tilt-content h-100 d-flex flex-column justify-content-center">
+                            <span class="stat-number" id="gpaStat">3.943</span>
+                            <div class="stat-label">GPA</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item fade-in">
-                        <a class="stat-number" href="#achievements">2</a>
-                        <div class="stat-label">Patents Filed</div>
+                <div class="col-md-3 col-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel stat-item tilt-content h-100 d-flex flex-column justify-content-center">
+                            <span class="stat-number">2</span>
+                            <div class="stat-label">Patents Filed</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item fade-in">
-                        <a class="stat-number" href="#about">31+</a>
-                        <div class="stat-label">Technical Skills</div>
+                <div class="col-md-3 col-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel stat-item tilt-content h-100 d-flex flex-column justify-content-center">
+                            <span class="stat-number">31+</span>
+                            <div class="stat-label">Technical Skills</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item fade-in">
-                        <a class="stat-number" href="#education">2026</a>
-                        <div class="stat-label">Expected Graduation</div>
+                <div class="col-md-3 col-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel stat-item tilt-content h-100 d-flex flex-column justify-content-center">
+                            <span class="stat-number">2026</span>
+                            <div class="stat-label">Expected Graduation</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="about" class="py-5">
         <div class="container">
-            <h2 class="section-title fade-in">Technical Expertise</h2>
-            <div class="row">
-                <div class="col-12">
-                    <div class="fade-in">
-                        <h5 class="mb-3">Programming Languages</h5>
-                        <div class="mb-4">
-                            <span class="skill-tag">Java</span>
-                            <span class="skill-tag">C</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">C++</span>
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">HTML/CSS</span>
-                            <span class="skill-tag">Shell Script</span>
-                        </div>
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="tilt-card d-flex" data-tilt>
+                <div class="glass-panel tilt-content w-100" style="border-radius: 30px; padding: 3rem;">
+                    <h5 class="mb-3 text-primary"><i class="fas fa-code me-2"></i>Programming Languages</h5>
+                    <div class="mb-4">
+                        <span class="skill-tag">Java</span><span class="skill-tag">C</span><span class="skill-tag">Python</span>
+                        <span class="skill-tag">C++</span><span class="skill-tag">JavaScript</span><span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">Shell Script</span>
+                    </div>
 
-                        <h5 class="mb-3">Databases & Tools</h5>
-                        <div class="mb-4">
-                            <span class="skill-tag">PostgreSQL</span>
-                            <span class="skill-tag">MySQL</span>
-                            <span class="skill-tag">SQLite</span>
-                            <span class="skill-tag">Amazon RDS</span>
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">VIM</span>
-                            <span class="skill-tag">Nano</span>
-                            <span class="skill-tag">LaTeX</span>
-                        </div>
+                    <h5 class="mb-3 text-primary"><i class="fas fa-database me-2"></i>Databases & Tools</h5>
+                    <div class="mb-4">
+                        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">SQLite</span>
+                        <span class="skill-tag">Amazon RDS</span><span class="skill-tag">Git</span><span class="skill-tag">VIM</span>
+                        <span class="skill-tag">Nano</span><span class="skill-tag">LaTeX</span>
+                    </div>
 
-                        <h5 class="mb-3">Frameworks & Libraries</h5>
-                        <div class="mb-4">
-                            <span class="skill-tag">TensorFlow</span>
-                            <span class="skill-tag">PyTorch</span>
-                            <span class="skill-tag">NumPy</span>
-                            <span class="skill-tag">Pandas</span>
-                            <span class="skill-tag">Matplotlib</span>
-                            <span class="skill-tag">Vuforia</span>
-                            <span class="skill-tag">Django</span>
-                            <span class="skill-tag">Clojure</span>
-                            <span class="skill-tag">REST</span>
-                            <span class="skill-tag">FastAPI</span>
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Vite</span>
-                            <span class="skill-tag">Vercel</span>
-                        </div>
+                    <h5 class="mb-3 text-primary"><i class="fas fa-layer-group me-2"></i>Frameworks & Libraries</h5>
+                    <div class="mb-4">
+                        <span class="skill-tag">TensorFlow</span><span class="skill-tag">PyTorch</span><span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span><span class="skill-tag">Vuforia</span>
+                        <span class="skill-tag">Django</span><span class="skill-tag">Clojure</span><span class="skill-tag">REST</span>
+                        <span class="skill-tag">FastAPI</span><span class="skill-tag">React</span><span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Vite</span><span class="skill-tag">Vercel</span>
+                    </div>
 
-                        <h5 class="mb-3">Productivity Software</h5>
-                        <div class="mb-4">
-                            <span class="skill-tag">Microsoft Office</span>
-                            <span class="skill-tag">Google Workspace</span>
-                        </div>
+                    <h5 class="mb-3 text-primary"><i class="fas fa-laptop me-2"></i>Productivity Software</h5>
+                    <div class="mb-0">
+                        <span class="skill-tag">Microsoft Office</span><span class="skill-tag">Google Workspace</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section id="education" class="py-5 bg-light">
+    <section id="education" class="py-5">
         <div class="container">
-            <h2 class="section-title fade-in">Education</h2>
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="card h-100 education-card fade-in">
-                        <div class="card-header">
-                            <h4 class="mb-0">
-                                <i class="fas fa-graduation-cap me-2"></i>
-                                Bachelor of Science in Computer Science
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="text-primary d-flex justify-content-between align-items-center">
-                                University of Notre Dame
-                                <img src="ND_Monogram_117_RGB.png" alt="" width="40px" class="me-4">
-                            </h5>
-                            <p class="text-muted mb-2">Notre Dame, Indiana</p>
-                            <p class="mb-1"><strong>Minor:</strong> Engineering Corporate Practice</p>
-                            <p class="mb-1"><strong>Expected Graduation:</strong> May 2026</p>
-                            <p class="mb-0"><strong>GPA:</strong> 3.943</p>
+            <h2 class="section-title">Education</h2>
+            <div class="row g-4">
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header">
+                                <i class="fas fa-graduation-cap me-2 text-primary"></i> Bachelor of Science in Computer Science
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <h5 class="text-primary d-flex justify-content-between">
+                                    University of Notre Dame
+                                    <img src="ND_Monogram_117_RGB.png" alt="" width="40" class="nd-logo">
+                                </h5>
+                                <p class="text-muted small">Notre Dame, Indiana</p>
+                                <p class="mb-1"><strong>Minor:</strong> Engineering Corporate Practice</p>
+                                <p class="mb-1"><strong>Expected Graduation:</strong> May 2026</p>
+                                <p class="mb-0 mt-3"><strong class="text-primary fs-5">GPA: 3.943</strong></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 mb-4">
-                    <div class="card h-100 education-card fade-in">
-                        <div class="card-header">
-                            <h4 class="mb-0">
-                                <i class="fas fa-school me-2"></i>
-                                High School Diploma
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="text-primary d-flex justify-content-between align-items-center">
-                                Cardinal Gibbons High School
-                                <img src="CGHS.png" alt="" width="40px" class="me-4">
-                            </h5>
-                            <p class="text-muted mb-2">Raleigh, North Carolina</p>
-                            <p class="mb-1"><strong>Graduated:</strong> May 2023</p>
-                            <p class="mb-0"><strong>Weighted GPA:</strong> 4.896</p>
-                            <p class="mb-0"><strong>Unweighted GPA:</strong> 4.0</p>
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header">
+                                <i class="fas fa-school me-2 text-primary"></i> High School Diploma
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <h5 class="text-primary d-flex justify-content-between">
+                                    Cardinal Gibbons High School
+                                    <img src="CGHS.png" alt="" width="40">
+                                </h5>
+                                <p class="text-muted small">Raleigh, North Carolina</p>
+                                <p class="mb-1"><strong>Graduated:</strong> May 2023</p>
+                                <p class="mb-1"><strong>Weighted GPA:</strong> 4.896</p>
+                                <p class="mb-0 mt-3"><strong class="text-primary fs-5">Unweighted GPA: 4.0</strong></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -721,222 +640,160 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
     <section id="experience" class="py-5">
         <div class="container">
-            <h2 class="section-title fade-in">Professional Experience</h2>
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Research Assistant Intern</h5>
-                            <small>May 2025 - Present</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">Mendoza College of Business at University of Notre Dame</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Building a predictive ML model to predict conference paper status
-                                    given current metadata</li>
-                                <li class="mb-2">• Developed scalable web scrapers and leveraged APIs to collect
-                                    metadata from conference papers, automating data extraction and analysis from both
-                                    static and dynamic content</li>
-                                <li class="mb-2">• Created scripts for collecting, cleaning, and analyzing conference
-                                    author/paper metadata using Python and the OpenReview API</li>
-                                <li>• Published software documentation on all written code, research procedures, and
-                                    data results</li>
-                            </ul>
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="row g-4">
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Research Assistant Intern</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">May 2025 - Present</span>
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">Mendoza College of Business at University of Notre Dame</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Building a predictive ML model to predict conference paper status given current metadata</li>
+                                    <li>Developed scalable web scrapers and leveraged APIs to collect metadata from conference papers, automating data extraction and analysis from both static and dynamic content</li>
+                                    <li>Created scripts for collecting, cleaning, and analyzing conference author/paper metadata using Python and the OpenReview API</li>
+                                    <li>Published software documentation on all written code, research procedures, and data results</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Undergraduate Research Assistant</h5>
-                            <small>Jan 2025 - Present</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">Cooperative Computing Lab at University of Notre Dame</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Improving TaskVine (a distributed computing framework) reliability
-                                    and workflows according to coding standards</li>
-                                <li class="mb-2">• Resolved 411,000 memory errors and improved computation efficiency by
-                                    redesigning hashing algorithms</li>
-                                <li class="mb-2">• Designed Python scripts for task scheduling, resource allocation, and
-                                    data distribution across distributed systems</li>
-                                <li>• Researched the integration of LLMs in memory-based error debugging prior to
-                                    deployment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Backend/DevOps Software Engineer</h5>
-                            <small>Aug 2025 - Present</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">Innovation Sprint Lab & ClickUp</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Collaborated with a team of 5 to partner with ClickUp to deliver user-requested feature products</li>
-                                <li class="mb-2">• Developed full-stack web application using React/Vite frontend (Vercel) and FastAPI backend (EC2), with multi-database infrastructure (SQLite, PostgreSQL, Amazon RDS)</li>
-                                <li class="mb-2">• Built integrated task management suite with time tracking, workflow automation, and smart dependency alerts</li>
-                            </ul>
+                
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Undergraduate Research Assistant</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Jan 2025 - Present</span>
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">Cooperative Computing Lab at University of Notre Dame</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Improving TaskVine (a distributed computing framework) reliability and workflows according to coding standards</li>
+                                    <li>Resolved 411,000 memory errors and improved computation efficiency by redesigning hashing algorithms</li>
+                                    <li>Designed Python scripts for task scheduling, resource allocation, and data distribution across distributed systems</li>
+                                    <li>Researched the integration of LLMs in memory-based error debugging prior to deployment</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Lead Programmer</h5>
-                            <small>Aug 2019 - Aug 2023</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">FIRST Tech Challenge</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Led a cross-functional team of 8 students as Lead Software Engineer
-                                    and headed the Autonomous software development</li>
-                                <li class="mb-2">• Onboarded new team members with an introduction to Java, Git, and the
-                                    FIRST control framework</li>
-                                <li class="mb-2">• Implemented an auto-alignment system with Vuforia image recognition
-                                    and TensorFlow object detection</li>
-                                <li>• Filed 2 patents for a “Foot-Operated Robot Interface” and a “Swerve-Drive Robot”
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Introduction to Engineering Program Counselor</h5>
-                            <small>Jun 2025 - Jul 2025</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">University of Notre Dame</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Collaborated with a team of 12 counselors to coordinate and lead
-                                    engaging activities for campers</li>
-                                <li class="mb-2">• Mentored 131 high school campers on software design and
-                                    implementation throughout the robot project</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Tutor for Student-Athletes</h5>
-                            <small>Aug 2024 - May 2025 | </small>
-                            <small>Aug 2025 - Present</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">University of Notre Dame</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Tutored student-athletes in Calculus, Linear Algebra, and Electro
-                                    Magnetism</li>
-                                <li class="mb-2">• Developed personalized study strategies and time management skills
-                                </li>
-                                <li class="mb-2">• Collaborated with academic advisors and coaching staff</li>
-                                <li>• Fostered positive learning environments for academic growth</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Green Team Member</h5>
-                            <small>Aug 2024 - Dec 2024 | </small>
-                            <small>Aug 2025 - Present</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">Notre Dame Sustainability</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Led sustainability initiatives at football tailgates to educate
-                                    guests on recycling policies, boosting recycling rates from 9% to 15%</li>
-                                <li>• Supported university recycling programs, doubling diverted materials from the
-                                    landfill from 25.97 to 50.16 tons in a year</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100 experience-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">Founder & CEO</h5>
-                            <small>May 2024 - Aug 2024</small>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-primary">Setia Enterprises</h6>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• Created 500+ optimized product listings</li>
-                                <li class="mb-2">• Achieved 17.3% sales increase with 200+ items sold</li>
-                                <li class="mb-2">• Maintained 100% positive feedback rating</li>
-                                <li>• Managed inventory, sourcing, and financial records</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Achievements Section -->
-    <section id="achievements" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title fade-in">Achievements & Recognition</h2>
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="card h-100 achievement-card patent-highlight fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">
-                                <i class="fas fa-certificate me-2"></i>
-                                Patent Applications
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="timeline-item">
-                                <h6 class="fw-bold">Swerve-Drive Robot</h6>
-                                <p class="text-muted mb-1">Filed: January 16, 2024</p>
-                                <p class="mb-0">Application #: 18/414089</p>
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Backend/DevOps Software Engineer</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2025 - Present</span>
                             </div>
-                            <div class="timeline-item">
-                                <h6 class="fw-bold">Foot-Operated Robot Interface</h6>
-                                <p class="text-muted mb-1">Issued: March 18, 2025</p>
-                                <p class="mb-0">Patent #: 12,251,627</p>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">Innovation Sprint Lab & ClickUp</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Collaborated with a team of 5 to partner with ClickUp to deliver user-requested feature products</li>
+                                    <li>Developed full-stack web application using React/Vite frontend (Vercel) and FastAPI backend (EC2), with multi-database infrastructure (SQLite, PostgreSQL, Amazon RDS)</li>
+                                    <li>Built integrated task management suite with time tracking, workflow automation, and smart dependency alerts</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 mb-4">
-                    <div class="card h-100 achievement-card fade-in">
-                        <div class="card-header">
-                            <h5 class="mb-0">
-                                <i class="fas fa-award me-2"></i>
-                                Certifications & Service
-                            </h5>
+
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Lead Programmer</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2019 - Aug 2023</span>
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">FIRST Tech Challenge</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Led a cross-functional team of 8 students as Lead Software Engineer and headed the Autonomous software development</li>
+                                    <li>Onboarded new team members with an introduction to Java, Git, and the FIRST control framework</li>
+                                    <li>Implemented an auto-alignment system with Vuforia image recognition and TensorFlow object detection</li>
+                                    <li>Filed 2 patents for a “Foot-Operated Robot Interface” and a “Swerve-Drive Robot”</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <h6 class="fw-bold">3rd Degree Knight</h6>
-                                <p class="text-muted mb-0">Knights of Columbus Council 1477</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Intro to Engineering Program Counselor</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Jun 2025 - Jul 2025</span>
                             </div>
-                            <div class="mb-3">
-                                <h6 class="fw-bold">Tau Beta Pi</h6>
-                                <p class="text-muted mb-0">Indiana Gamma Chapter</p>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">University of Notre Dame</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Collaborated with a team of 12 counselors to coordinate and lead engaging activities for campers</li>
+                                    <li>Mentored 131 high school campers on software design and implementation throughout the robot project</li>
+                                </ul>
                             </div>
-                            <div class="mb-4">
-                                <h6 class="fw-bold">Green Dot Bystander Training</h6>
-                                <p class="text-muted mb-0">Issued: September 10, 2023</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Tutor for Student-Athletes</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2024 - Present</span>
                             </div>
-                            <div class="mb-3">
-                                <h6 class="fw-bold">Liturgical Choir (Tenor I)</h6>
-                                <p class="text-muted mb-0">University of Notre Dame</p>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">University of Notre Dame</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Tutored student-athletes in Calculus, Linear Algebra, and Electro Magnetism</li>
+                                    <li>Developed personalized study strategies and time management skills</li>
+                                    <li>Collaborated with academic advisors and coaching staff</li>
+                                    <li>Fostered positive learning environments for academic growth</li>
+                                </ul>
                             </div>
-                            <div>
-                                <h6 class="fw-bold">Altar Server</h6>
-                                <p class="text-muted mb-0">St. Francis of Assisi Parish</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Green Team Member</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2024 - Present</span>
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">Notre Dame Sustainability</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Led sustainability initiatives at football tailgates to educate guests on recycling policies, boosting recycling rates from 9% to 15%</li>
+                                    <li>Supported university recycling programs, doubling diverted materials from the landfill from 25.97 to 50.16 tons in a year</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Founder & CEO</h5>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">May 2024 - Aug 2024</span>
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <h6 class="text-primary">Setia Enterprises</h6>
+                                <ul class="list-unstyled mt-3">
+                                    <li>Created 500+ optimized product listings</li>
+                                    <li>Achieved 17.3% sales increase with 200+ items sold</li>
+                                    <li>Maintained 100% positive feedback rating</li>
+                                    <li>Managed inventory, sourcing, and financial records</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -945,428 +802,270 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
+    <section id="achievements" class="py-5">
         <div class="container">
-            <h2 class="section-title fade-in text-center">Get In Touch</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center fade-in">
-                    <p class="lead mb-4">I'm always interested in discussing research opportunities, collaborations, or
-                        innovative projects in computer science.</p>
-                    <div class="d-flex justify-content-center flex-wrap gap-4">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=isetia@nd.edu"
-                            class="btn btn-primary btn-lg" target="_blank">
-                            <i class="fas fa-envelope me-2"></i>Send Email
-                        </a>
-                        <a href="tel:+19842427481" class="btn btn-outline-primary btn-lg">
-                            <i class="fas fa-phone me-2"></i>Call Me
-                        </a>
+            <h2 class="section-title">Achievements & Recognition</h2>
+            <div class="row g-4">
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header">
+                                <i class="fas fa-certificate me-2 text-primary"></i> Patent Applications
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <div class="timeline-item">
+                                    <h5 class="text-primary mb-1">Swerve-Drive Robot</h5>
+                                    <p class="text-muted small mb-1">Filed: January 16, 2024</p>
+                                    <p class="mb-0">Application #: <strong>18/414089</strong></p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h5 class="text-primary mb-1">Foot-Operated Robot Interface</h5>
+                                    <p class="text-muted small mb-1">Issued: March 18, 2025</p>
+                                    <p class="mb-0">Patent #: <strong>12,251,627</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="tilt-card w-100" data-tilt>
+                        <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
+                            <div class="card-header">
+                                <i class="fas fa-award me-2 text-primary"></i> Certifications & Service
+                            </div>
+                            <div class="card-body flex-grow-1">
+                                <ul class="list-unstyled">
+                                    <li><strong>3rd Degree Knight</strong> - Knights of Columbus Council 1477</li>
+                                    <li><strong>Tau Beta Pi</strong> - Indiana Gamma Chapter</li>
+                                    <li><strong>Green Dot Bystander Training</strong> - Issued: September 10, 2023</li>
+                                    <li><strong>Liturgical Choir (Tenor I)</strong> - University of Notre Dame</li>
+                                    <li><strong>Altar Server</strong> - St. Francis of Assisi Parish</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <footer class="py-5 text-center" style="background: var(--glass-bg); backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); margin-top: 5rem;">
         <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p class="mb-0">&copy; 2025 Ian Setia. All rights reserved.</p>
-                </div>
-            </div>
+            <p class="mb-0">© 2025 Ian Setia. All rights reserved.</p>
+            <small class="text-muted">Hint: Try clicking on the GPA or using the Konami Code.</small>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Dark Mode Toggle with Ripple Effect
-        document.addEventListener('DOMContentLoaded', function () {
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const darkModeIcon = document.getElementById('darkModeIcon');
-            const body = document.body;
+        // --- 3D Tilt Effect on Cards (Reduced & Subtle) ---
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Reduced rotation significantly for a subtle effect
+                const rotateX = ((y - centerY) / centerY) * -3; 
+                const rotateY = ((x - centerX) / centerX) * 3;
 
-            // Check for saved theme preference or default to light mode
-            const currentTheme = localStorage.getItem('theme') || 'light';
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
 
-            // Apply the saved theme
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'dark');
-                darkModeIcon.className = 'fas fa-sun';
-            } else {
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // --- Theme Management ---
+        const themeToggle = document.getElementById('themeToggle');
+        const animeToggle = document.getElementById('animeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        // Standard Dark/Light Mode
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'anime' || body.getAttribute('data-theme') === 'hacker') {
                 body.removeAttribute('data-theme');
-                darkModeIcon.className = 'fas fa-moon';
             }
 
-            // Dark mode toggle with ripple effect
-            darkModeToggle.addEventListener('click', function (e) {
-                const rect = darkModeToggle.getBoundingClientRect();
-                const x = e.clientX;
-                const y = e.clientY;
-
-                // Create ripple element
-                const ripple = document.createElement('div');
-                ripple.className = 'theme-ripple';
-
-                // Position ripple at click location
-                const size = Math.max(window.innerWidth, window.innerHeight) * 2;
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = (x - size / 2) + 'px';
-                ripple.style.top = (y - size / 2) + 'px';
-
-                // Add appropriate ripple class based on current theme
-                const isDark = body.hasAttribute('data-theme');
-                ripple.classList.add(isDark ? 'dark-to-light' : 'light-to-dark');
-
-                // Add ripple to body
-                document.body.appendChild(ripple);
-
-                // Disable transitions temporarily
-                body.classList.add('theme-transitioning');
-
-                // Start ripple animation
-                requestAnimationFrame(() => {
-                    ripple.classList.add('animate');
-                });
-
-                // Toggle theme after a short delay
-                setTimeout(() => {
-                    if (isDark) {
-                        body.removeAttribute('data-theme');
-                        darkModeIcon.className = 'fas fa-moon';
-                        localStorage.setItem('theme', 'light');
-                    } else {
-                        body.setAttribute('data-theme', 'dark');
-                        darkModeIcon.className = 'fas fa-sun';
-                        localStorage.setItem('theme', 'dark');
-                    }
-
-                    // Re-enable transitions
-                    body.classList.remove('theme-transitioning');
-                }, 300);
-
-                // Remove ripple element after animation
-                setTimeout(() => {
-                    if (ripple.parentNode) {
-                        ripple.parentNode.removeChild(ripple);
-                    }
-                }, 800);
-            });
-        });
-
-        // Smooth scrolling for navigation links
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('a[href^="#"]');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-
-                    if (targetElement) {
-                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
-
-                        // Check if this is a stats section link
-                        const isStatsLink = link.classList.contains('stat-number');
-
-                        let mobileOffset;
-                        if (isStatsLink) {
-                            // Smaller offset for stats links
-                            mobileOffset = window.innerWidth < 992 ? 80 : 80;
-                        } else {
-                            // Regular offset for navbar links
-                            mobileOffset = window.innerWidth < 992 ? 400 : 80;
-                        }
-
-                        const targetPosition = targetElement.offsetTop - navbarHeight + mobileOffset;
-
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-
-        // Fade-in animation on scroll
-        document.addEventListener('DOMContentLoaded', function () {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver(function (entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
-
-            const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach(el => observer.observe(el));
-        });
-
-        // Active navigation link highlighting
-        document.addEventListener('DOMContentLoaded', function () {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-
-            function updateActiveLink() {
-                const scrollPosition = window.scrollY + 100;
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
-
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${sectionId}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink(); // Initial call
-        });
-
-        // Navbar background opacity on scroll
-        document.addEventListener('DOMContentLoaded', function () {
-            const navbar = document.querySelector('.navbar');
-
-            function updateNavbarOpacity() {
-                const scrolled = window.scrollY;
-
-                if (scrolled > 10) {
-                    navbar.style.backgroundColor = 'var(--navbar-bg)';
-                    navbar.style.backdropFilter = 'blur(10px)';
-                } else {
-                    const opacity = Math.max(0.7, 0.95 - (scrolled * 0.005));
-                    navbar.style.backgroundColor = `var(--navbar-bg)`;
-                    navbar.style.opacity = opacity;
-                    navbar.style.backdropFilter = `blur(${Math.max(5, 10 - (scrolled * 0.1))}px)`;
-                }
-            }
-
-            window.addEventListener('scroll', updateNavbarOpacity);
-            updateNavbarOpacity();
-        });
-
-        // Skill tags hover effect enhancement
-        document.addEventListener('DOMContentLoaded', function () {
-            const skillTags = document.querySelectorAll('.skill-tag');
-
-            skillTags.forEach(tag => {
-                tag.addEventListener('mouseenter', function () {
-                    this.style.transform = 'scale(1.05) rotate(2deg)';
-                });
-
-                tag.addEventListener('mouseleave', function () {
-                    this.style.transform = 'scale(1) rotate(0deg)';
-                });
-            });
-        });
-
-        // Contact form animations and interactions
-        document.addEventListener('DOMContentLoaded', function () {
-            const contactItems = document.querySelectorAll('.contact-item');
-
-            contactItems.forEach(item => {
-                item.addEventListener('mouseenter', function () {
-                    const icon = this.querySelector('i');
-                    icon.style.transform = 'scale(1.2) rotate(10deg)';
-                });
-
-                item.addEventListener('mouseleave', function () {
-                    const icon = this.querySelector('i');
-                    icon.style.transform = 'scale(1) rotate(0deg)';
-                });
-            });
-        });
-
-        // Stats counter animation
-        document.addEventListener('DOMContentLoaded', function () {
-            const statNumbers = document.querySelectorAll('.stat-number');
-            let animated = false;
-
-            function animateStats() {
-                if (animated) return;
-
-                statNumbers.forEach(stat => {
-                    const finalValue = stat.textContent;
-                    const isGPA = finalValue.includes('.');
-                    const isYear = finalValue.includes('2026');
-                    const hasPlus = finalValue.includes('+');
-
-                    if (isGPA) {
-                        animateValue(stat, 0, parseFloat(finalValue), 2000, 2);
-                    } else if (isYear) {
-                        animateValue(stat, 2020, parseInt(finalValue), 2000, 0);
-                    } else if (hasPlus) {
-                        const num = parseInt(finalValue.replace('+', ''));
-                        animateValue(stat, 0, num, 2000, 0, '+');
-                    } else {
-                        animateValue(stat, 0, parseInt(finalValue), 2000, 0);
-                    }
-                });
-
-                animated = true;
-            }
-
-            function animateValue(element, start, end, duration, decimal = 0, suffix = '') {
-                const startTime = performance.now();
-
-                function updateValue(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-
-                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-                    const current = start + (end - start) * easeOutQuart;
-
-                    element.textContent = current.toFixed(decimal) + suffix;
-
-                    if (progress < 1) {
-                        requestAnimationFrame(updateValue);
-                    }
-                }
-
-                requestAnimationFrame(updateValue);
-            }
-
-            // Trigger animation when stats section is visible
-            const statsSection = document.querySelector('.stats-section');
-            const statsObserver = new IntersectionObserver(function (entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateStats();
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            if (statsSection) {
-                statsObserver.observe(statsSection);
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fas fa-sun';
             }
         });
 
-        // Parallax effect for hero section
-        document.addEventListener('DOMContentLoaded', function () {
-            const heroSection = document.querySelector('.hero-section');
-
-            if (heroSection) {
-                window.addEventListener('scroll', function () {
-                    const scrolled = window.pageYOffset;
-                    const rate = scrolled * -0.5;
-
-                    heroSection.style.transform = `translateY(${rate}px)`;
-                });
-            }
-        });
-
-        // Card hover effects enhancement
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.card');
-
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-        });
-
-        // Button click effects
-        document.addEventListener('DOMContentLoaded', function () {
-            const buttons = document.querySelectorAll('.btn');
-
-            buttons.forEach(button => {
-                button.addEventListener('click', function (e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    ripple.classList.add('ripple-effect');
-
-                    this.appendChild(ripple);
-
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
-        });
-
-        // Mobile menu auto-close
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function () {
-                    if (navbarCollapse.classList.contains('show')) {
-                        const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                        bsCollapse.hide();
-                    }
-                });
-            });
-        });
-
-        // Keyboard navigation support
-        document.addEventListener('DOMContentLoaded', function () {
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    const navbarCollapse = document.querySelector('.navbar-collapse');
-                    if (navbarCollapse.classList.contains('show')) {
-                        const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                        bsCollapse.hide();
-                    }
-                }
-            });
-        });
-
-        // Performance optimization: Throttle scroll events
-        function throttle(func, limit) {
-            let inThrottle;
-            return function () {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            }
+        // Anime Mode
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            // Randomize properties
+            const size = Math.random() * 15 + 10;
+            const left = Math.random() * 100;
+            const animDuration = Math.random() * 5 + 5;
+            
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            petal.style.left = `${left}vw`;
+            petal.style.animationDuration = `${animDuration}s`;
+            
+            document.getElementById('petal-container').appendChild(petal);
+            
+            // Remove after fall
+            setTimeout(() => {
+                petal.remove();
+            }, animDuration * 1000);
         }
 
-        // Apply throttling to scroll events
-        document.addEventListener('DOMContentLoaded', function () {
-            const scrollEvents = ['scroll'];
-            const throttledScroll = throttle(function () {
-                // Scroll event handlers are already defined above
-            }, 16); // ~60fps
+        let petalInterval;
 
-            scrollEvents.forEach(event => {
-                window.addEventListener(event, throttledScroll);
+        animeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'anime') {
+                body.removeAttribute('data-theme');
+                clearInterval(petalInterval);
+                document.getElementById('petal-container').innerHTML = '';
+            } else {
+                body.setAttribute('data-theme', 'anime');
+                themeIcon.className = 'fas fa-moon';
+                
+                // Start falling petals
+                petalInterval = setInterval(createPetal, 300);
+            }
+        });
+
+        // --- Easter Eggs ---
+
+        // 1. GPA Clicker
+        const gpaStat = document.getElementById('gpaStat');
+        let gpaClicks = 0;
+        gpaStat.addEventListener('click', () => {
+            gpaClicks++;
+            if (gpaClicks === 5) {
+                gpaStat.innerText = "OVER 9000!";
+                gpaStat.classList.add('shake');
+                setTimeout(() => gpaStat.classList.remove('shake'), 500);
+            } else if (gpaClicks > 5) {
+                gpaStat.classList.remove('shake');
+                void gpaStat.offsetWidth; // trigger reflow
+                gpaStat.classList.add('shake');
+            }
+        });
+
+        // 2. Logo Spin
+        const ndLogos = document.querySelectorAll('.nd-logo');
+        ndLogos.forEach(logo => {
+            let logoClicks = 0;
+            logo.addEventListener('click', () => {
+                logoClicks++;
+                if (logoClicks >= 3) {
+                    logo.classList.add('spin-egg');
+                }
             });
         });
+
+        // 3. Konami Code (Hacker Mode)
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    activateHackerMode();
+                    konamiIndex = 0; // reset
+                }
+            } else {
+                konamiIndex = 0; // reset if wrong key
+            }
+        });
+
+        // Matrix Rain effect for Hacker Mode
+        function activateHackerMode() {
+            body.setAttribute('data-theme', 'hacker');
+            
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~';
+            const matrix = letters.split('');
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+            
+            const drops = [];
+            for (let x = 0; x < columns; x++) drops[x] = 1;
+            
+            function drawMatrix() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#0F0';
+                ctx.font = fontSize + 'px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrix[Math.floor(Math.random() * matrix.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+                        drops[i] = 0;
+                    
+                    drops[i]++;
+                }
+            }
+            setInterval(drawMatrix, 50);
+        }
+
+        // Throttle resize event for Matrix canvas
+        window.addEventListener('resize', () => {
+            if (body.getAttribute('data-theme') === 'hacker') {
+                const canvas = document.getElementById('matrix-canvas');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('navbarNav');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbar = document.querySelector('.navbar'); // The whole navbar area
+
+            // 1. Close menu when clicking a link
+            navLinks.forEach((link) => {
+                link.addEventListener('click', () => {
+                    if (menuToggle.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+                        bsCollapse.hide();
+                    }
+                });
+            });
+
+            // 2. Close menu when clicking anywhere outside of it
+            document.addEventListener('click', (event) => {
+                // Check if the menu is open
+                if (menuToggle.classList.contains('show')) {
+                    // If the click target is NOT inside the navbar, close it
+                    if (!navbar.contains(event.target)) {
+                        const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+                        bsCollapse.hide();
+                    }
+                }
+            });
+        });
+
+
     </script>
 </body>
-
 </html>
