@@ -300,22 +300,28 @@
         /* Responsive Stats */
         .stat-item {
             text-align: center;
-            padding: clamp(1rem, 3vw, 2rem);
+            /* Reduced minimum padding to give text more room on very small screens */
+            padding: clamp(0.5rem, 2vw, 2rem); 
             border-radius: 24px;
             transition: transform 0.3s ease;
+            /* Enables container queries so text scales relative to this specific box */
+            container-type: inline-size; 
         }
 
         .stat-number {
-            font-size: clamp(1.8rem, 5vw, 4rem); /* Responsive typography */
+            font-size: clamp(1.2rem, 6vw, 3.5rem); /* Fallback */
+            font-size: clamp(1.2rem, 22cqi, 3.5rem); /* Scales perfectly with box width */
             font-weight: 800;
             color: var(--text-main);
             display: block;
-            line-height: 1;
+            line-height: 1.1; /* Increased slightly so wrapped text doesn't overlap */
             margin-bottom: 0.5rem;
             cursor: pointer;
             user-select: none;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+            
+            /* Remove white-space: nowrap and add these wrapping rules */
+            white-space: normal; 
+            overflow-wrap: break-word; /* Ensures long words/numbers wrap instead of overflowing */
         }
         
         .stat-number.shake {
@@ -331,11 +337,13 @@
         }
 
         .stat-label { 
-            font-size: clamp(0.7rem, 2vw, 1rem); /* Responsive label */
+            font-size: clamp(0.65rem, 2.5vw, 1rem); /* Fallback */
+            font-size: clamp(0.65rem, 10cqi, 1rem); 
             font-weight: 500; 
             color: var(--text-muted); 
             text-transform: uppercase; 
             letter-spacing: 1px; 
+            white-space: nowrap; /* Prevents the label from wrapping as well */
         }
 
         /* Skills */
@@ -602,11 +610,11 @@
                     <div class="tilt-card w-100" data-tilt>
                         <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
                             <div class="card-header">
-                                <i class="fas fa-graduation-cap me-2 text-primary"></i> Masters in Management Science & Engineering
+                                <i class="fas fa-graduation-cap me-2 text-primary"></i> Master of Science in Management Science & Engineering
                             </div>
                             <div class="card-body flex-grow-1">
                                 <h5 class="text-primary d-flex justify-content-between align-items-center mb-2">
-                                    Stanford Univeristy
+                                    Stanford University
                                     <img src="stanford_logo.avif" alt="ND Logo" style="width: 40px; height: 40px; object-fit: contain;">
                                 </h5>
                                 <p class="text-muted small">Stanford, California</p>
@@ -708,7 +716,7 @@
                         <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">Undergraduate Research Assistant</h5>
-                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Jan 2025 - Present</span>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Jan 2025 - Dec 2025</span>
                             </div>
                             <div class="card-body flex-grow-1">
                                 <h6 class="text-primary">Cooperative Computing Lab at University of Notre Dame</h6>
@@ -728,7 +736,7 @@
                         <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">Backend/DevOps Software Engineer</h5>
-                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2025 - Present</span>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2025 - Dec 2025</span>
                             </div>
                             <div class="card-body flex-grow-1">
                                 <h6 class="text-primary">Innovation Sprint Lab & ClickUp</h6>
@@ -785,7 +793,7 @@
                         <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">Tutor for Student-Athletes</h5>
-                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2024 - Present</span>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2024 - Jan 2026</span>
                             </div>
                             <div class="card-body flex-grow-1">
                                 <h6 class="text-primary">University of Notre Dame</h6>
@@ -805,7 +813,7 @@
                         <div class="glass-panel tilt-content h-100 d-flex flex-column" style="border-radius: 24px;">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">Green Team Member</h5>
-                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2024 - Present</span>
+                                <span class="badge" style="background: var(--glass-highlight); color: var(--text-main);">Aug 2024 - Dec 2025</span>
                             </div>
                             <div class="card-body flex-grow-1">
                                 <h6 class="text-primary">Notre Dame Sustainability</h6>
@@ -928,19 +936,33 @@
         const themeIcon = document.getElementById('themeIcon');
         const body = document.body;
 
-        // Standard Dark/Light Mode
-        themeToggle.addEventListener('click', () => {
-            if (body.getAttribute('data-theme') === 'anime' || body.getAttribute('data-theme') === 'hacker') {
-                body.removeAttribute('data-theme');
-            }
+        // Keep track of the user's preferred base theme (dark is default)
+        let baseTheme = 'dark'; 
 
-            if (body.getAttribute('data-theme') === 'light') {
-                body.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
-            } else {
+        // Helper function to reliably restore the correct base theme and icon
+        function restoreBaseTheme() {
+            if (baseTheme === 'light') {
                 body.setAttribute('data-theme', 'light');
                 themeIcon.className = 'fas fa-sun';
+            } else {
+                body.removeAttribute('data-theme'); // default is dark
+                themeIcon.className = 'fas fa-moon';
             }
+        }
+
+        // Standard Dark/Light Mode
+        themeToggle.addEventListener('click', () => {
+            // Clean up Anime mode if it's currently running
+            if (body.getAttribute('data-theme') === 'anime') {
+                clearInterval(petalInterval);
+                document.getElementById('petal-container').innerHTML = '';
+            }
+            
+            // Swap the base theme
+            baseTheme = baseTheme === 'dark' ? 'light' : 'dark';
+            
+            // Apply it
+            restoreBaseTheme();
         });
 
         // Anime Mode
@@ -970,12 +992,15 @@
 
         animeToggle.addEventListener('click', () => {
             if (body.getAttribute('data-theme') === 'anime') {
-                body.removeAttribute('data-theme');
+                // EXITING ANIME MODE
                 clearInterval(petalInterval);
                 document.getElementById('petal-container').innerHTML = '';
+                
+                // Go exactly back to whatever baseTheme was (Light or Dark)
+                restoreBaseTheme();
             } else {
+                // ENTERING ANIME MODE
                 body.setAttribute('data-theme', 'anime');
-                themeIcon.className = 'fas fa-moon';
                 
                 // Start falling petals
                 petalInterval = setInterval(createPetal, 300);
